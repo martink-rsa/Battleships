@@ -9,5 +9,7 @@ React, Jest, HTML, CSS, JavaScript
 ## How to run
 
 Install: `npm install`
+
 Run: `npm start`
+
 Tests: `npm test`
