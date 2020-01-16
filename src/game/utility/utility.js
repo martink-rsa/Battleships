@@ -3,4 +3,6 @@ const sortArrAsc = arr => [...arr].sort((a, b) => a - b);
 
 const sortArrDesc = arr => [...arr].sort((a, b) => b - a);
 
-export { sortArrAsc, sortArrDesc };
+const genRandNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+export { sortArrAsc, sortArrDesc, genRandNum };

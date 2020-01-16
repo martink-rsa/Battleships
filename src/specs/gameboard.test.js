@@ -381,6 +381,8 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
   });
 });
 
+// Check if ships are sunken after attacks and
+//    all ships have sunk
 describe('Gameboard: allShipsSunk() (Check if all ships have been sunk)', () => {
   // Ships all sunk
   test('Gameboard reports all ships sunk with 1 ship', () => {
