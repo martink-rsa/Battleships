@@ -90,7 +90,7 @@ const Gameboard = (playerID, size) => {
   const receiveAttack = ([x, y]) => {
     const grid = [..._grid];
     const gridContent = grid[x][y];
-    if (gridContent === 'X') {
+    if (gridContent === 'X' || gridContent === 'H' || gridContent === 'S') {
       // Can't attack tile already attacked.
     } else if (gridContent === 'E') {
       // Empty tile attacked
@@ -103,9 +103,17 @@ const Gameboard = (playerID, size) => {
           attackIndex = i;
         }
       }
-      // const attackIndex = shipObj.coords.indexOf([x, y]);
+
       if (attackIndex !== -1) {
         shipObj.ship.hit(attackIndex);
+        // Set all coord contents to S if ship is sunk
+        if (shipObj.ship.isSunk() === true) {
+          for (let i = 0; i < shipObj.coords.length; i += 1) {
+            grid[shipObj.coords[i][0]][shipObj.coords[i][1]] = 'S';
+          }
+        } else {
+          grid[x][y] = 'H';
+        }
       } else {
         throw new Error('Ship tile attack index error');
       }

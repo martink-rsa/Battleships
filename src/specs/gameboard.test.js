@@ -316,6 +316,7 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
     newGameboard.placeShip(newShip, [1, 3]);
     newGameboard.receiveAttack([1, 3]);
     expect(newShip.hits).toEqual([0]);
+    expect(newGameboard.grid[1][3]).toBe('H');
   });
   test('Gameboard allows attack on a ship (2 attacks)', () => {
     const newGameboard = Gameboard(0, 8);
@@ -323,19 +324,24 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
     newGameboard.placeShip(newShip, [1, 3]);
     newGameboard.receiveAttack([1, 3]);
     expect(newShip.hits).toEqual([0]);
+    expect(newGameboard.grid[1][3]).toBe('H');
     newGameboard.receiveAttack([1, 4]);
     expect(newShip.hits).toEqual([0, 1]);
+    expect(newGameboard.grid[1][4]).toBe('H');
   });
   test('Gameboard allows attack on a ship (3 attacks)', () => {
     const newGameboard = Gameboard(0, 8);
-    const newShip = Ship(0, 3, [], false, 'horizontal');
+    const newShip = Ship(0, 4, [], false, 'horizontal');
     newGameboard.placeShip(newShip, [1, 3]);
     newGameboard.receiveAttack([1, 3]);
     expect(newShip.hits).toEqual([0]);
+    expect(newGameboard.grid[1][3]).toBe('H');
     newGameboard.receiveAttack([1, 4]);
     expect(newShip.hits).toEqual([0, 1]);
+    expect(newGameboard.grid[1][4]).toBe('H');
     newGameboard.receiveAttack([1, 5]);
     expect(newShip.hits).toEqual([0, 1, 2]);
+    expect(newGameboard.grid[1][5]).toBe('H');
   });
 
   // Check if ship has sunk
@@ -345,6 +351,7 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
     newGameboard.placeShip(newShip, [1, 3]);
     newGameboard.receiveAttack([1, 3]);
     expect(newShip.isSunk()).toBe(true);
+    expect(newGameboard.grid[1][3]).toBe('S');
   });
   test('Ship with 3 length is sunk after 3 attacks received', () => {
     const newGameboard = Gameboard(0, 8);
@@ -354,6 +361,9 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
     newGameboard.receiveAttack([1, 4]);
     newGameboard.receiveAttack([1, 5]);
     expect(newShip.isSunk()).toBe(true);
+    expect(newGameboard.grid[1][3]).toBe('S');
+    expect(newGameboard.grid[1][4]).toBe('S');
+    expect(newGameboard.grid[1][5]).toBe('S');
   });
   test('Ship with 4 length is sunk after 4 attacks received', () => {
     const newGameboard = Gameboard(0, 8);
@@ -364,6 +374,10 @@ describe('Gameboard: receiveAttack() (Check if attack is valid)', () => {
     newGameboard.receiveAttack([1, 5]);
     newGameboard.receiveAttack([1, 6]);
     expect(newShip.isSunk()).toBe(true);
+    expect(newGameboard.grid[1][3]).toBe('S');
+    expect(newGameboard.grid[1][4]).toBe('S');
+    expect(newGameboard.grid[1][5]).toBe('S');
+    expect(newGameboard.grid[1][6]).toBe('S');
   });
 
   // Empty tile attacked

@@ -1,7 +1,6 @@
 /* eslint-disable wrap-iife */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-underscore-dangle */
-/* eslint no-else-return: "error" */
 import { Gameboard } from '../gameboard/gameboard';
 import { Player } from '../player/player';
 import { genRandNum } from '../utility/utility';
@@ -11,10 +10,8 @@ const ComputerAI = id => {
   let _shipFound = false;
   let _shipLocations = [];
   let _shipAlignment = '';
-  let _lastAttackCoords = [];
+  let _lastAttackMade = [];
   // let _availableLocations = [];
-
-  // --- Utility
 
   const getRandomCoords = (min, max) => genRandNum(min, max);
 
@@ -27,32 +24,26 @@ const ComputerAI = id => {
     let isFirstHorizontal = false;
     let verticalCounter = 0;
     let horizontalCounter = 0;
-    let verticalCoordStart = [];
-    let horizontalCoordStart = [];
-    let verticalCoordEnd = [];
-    let horizontalCoordEnd = [];
+    let verticalCoord = [];
+    let horizontalCoord = [];
     let longestVertical = 0;
     let longestHorizontal = 0;
-    let savedVerticalCoordStart = 0;
-    let savedVerticalCoordEnd = 0;
-    let savedHorizontalCoordStart = 0;
-    let savedHorizontalCoordEnd = 0;
+    let savedVerticalCoord = 0;
+    let savedHorizontalCoord = 0;
 
     for (let i = 0; i < grid.length; i += 1) {
       for (let j = 0; j < grid.length; j += 1) {
         if (grid[i][j] === 'H') {
           if (isFirstHorizontal === true) {
             isFirstHorizontal = false;
-            horizontalCoordStart = [i, j];
+            horizontalCoord = [i, j];
           }
-          horizontalCoordEnd = [i, j];
           horizontalCounter += 1;
         }
       }
       if (horizontalCounter > longestHorizontal) {
         longestHorizontal = horizontalCounter;
-        savedHorizontalCoordStart = horizontalCoordStart;
-        savedHorizontalCoordEnd = horizontalCoordEnd;
+        savedHorizontalCoord = horizontalCoord;
       }
       horizontalCounter = 0;
       isFirstHorizontal = true;
@@ -62,61 +53,28 @@ const ComputerAI = id => {
         if (grid[j][i] === 'H') {
           if (isFirstVertical === true) {
             isFirstVertical = false;
-            verticalCoordStart = [j, i];
+            verticalCoord = [j, i];
           }
-          verticalCoordEnd = [j, i];
           verticalCounter += 1;
         }
       }
       if (verticalCounter > longestVertical) {
         longestVertical = verticalCounter;
-        savedVerticalCoordStart = verticalCoordStart;
-        savedVerticalCoordEnd = verticalCoordEnd;
+        savedVerticalCoord = verticalCoord;
       }
       verticalCounter = 0;
       isFirstVertical = true;
     }
     if (longestVertical > longestHorizontal) {
-      return ['vertical', savedVerticalCoordStart, savedVerticalCoordEnd];
+      return ['vertical', savedVerticalCoord];
     }
-    return ['horizontal', savedHorizontalCoordStart, savedHorizontalCoordEnd];
+    return ['horizontal', savedHorizontalCoord];
   };
 
-  const countGridContents = (gameboard, content) => {
-    // Count the number of elements in a grid that was
-    //    specified via parameter
-    const { grid } = gameboard;
-    const gridSize = grid.length;
-    let count = 0;
-    for (let i = 0; i < gridSize; i += 1) {
-      for (let j = 0; j < gridSize; j += 1) {
-        if (grid[i][j] === content) {
-          count += 1;
-        }
-      }
-    }
-    return count;
-  };
-
-  // --- Controllers
-
-  const determineAttackType = gameboard => {
-    const numShips = countGridContents(gameboard, 'H');
-    let attackType = '';
-    if (numShips === 0) {
-      attackType = 'random';
-    } else if (numShips === 1) {
-      attackType = 'search';
-    } else if (numShips > 1) {
-      attackType = 'alignment';
-    }
-    return attackType;
-  };
-
-  // --- Attacks
+  const setShipLocations = () => {};
 
   const getRandomAttack = gameboard => {
-    let lastAttackCoords = [..._lastAttackCoords];
+    let lastAttackMade = [..._lastAttackMade];
     const { grid } = gameboard;
     const gridSize = grid.length;
     let x = getRandomCoords(0, gridSize);
@@ -126,8 +84,8 @@ const ComputerAI = id => {
       x = getRandomCoords(0, gridSize);
       y = getRandomCoords(0, gridSize);
     }
-    lastAttackCoords = [x, y];
-    _lastAttackCoords = [...lastAttackCoords];
+    lastAttackMade = [x, y];
+    _lastAttackMade = [...lastAttackMade];
 
     return [x, y];
   };
@@ -177,49 +135,89 @@ const ComputerAI = id => {
     }
   };
 
-  const getAlignmentAttack = (gameboard, alignment, startCoords, endCoords) => {
-    const { grid } = gameboard;
-    const gridLength = grid.length;
-    const startX = startCoords[0];
-    const startY = startCoords[1];
-    const endX = endCoords[0];
-    const endY = endCoords[1];
-    let attackCoords = [];
-
-    if (alignment === 'vertical') {
-      if (
-        startX - 1 > 0 &&
-        grid[startX - 1][startY] !== 'X' &&
-        grid[startX - 1][startY] !== 'H' &&
-        grid[startX - 1][startY] !== 'S'
-      ) {
-        attackCoords = [startX - 1, startY];
-      } else if (
-        endX < gridLength - 1 &&
-        grid[endX + 1][endY] !== 'X' &&
-        grid[endX + 1][endY] !== 'H' &&
-        grid[endX + 1][endY] !== 'S'
-      ) {
-        attackCoords = [endX + 1, endY];
-      }
-    } else if (alignment === 'horizontal') {
-      if (
-        startY - 1 >= 0 &&
-        grid[startX][startY - 1] !== 'X' &&
-        grid[startX][startY - 1] !== 'H' &&
-        grid[startX][startY - 1] !== 'S'
-      ) {
-        attackCoords = [startX, startY - 1];
-      } else if (
-        endY < gridLength - 1 &&
-        grid[endX][endY + 1] !== 'X' &&
-        grid[endX][endY + 1] !== 'H' &&
-        grid[endX][endY + 1] !== 'S'
-      ) {
-        attackCoords = [endX, endY + 1];
-      }
+  const setAvailableLocations = (
+    baseCoords,
+    grid,
+    shipLocations,
+    shipAlignment,
+  ) => {
+    const availableCoords = [];
+    const x = baseCoords[0];
+    const y = baseCoords[1];
+    const gridSize = grid.length;
+    // Top
+    if (
+      x > 0 &&
+      grid[x - 1][y] !== 'X' &&
+      grid[x - 1][y] !== 'H' &&
+      grid[x - 1][y] !== 'S'
+    ) {
+      availableCoords.push([x - 1, y]);
     }
-    return attackCoords;
+    // Left
+    if (
+      y > 0 &&
+      grid[x][y - 1] !== 'X' &&
+      grid[x][y - 1] !== 'H' &&
+      grid[x][y - 1] !== 'S'
+    ) {
+      availableCoords.push([x, y - 1]);
+    }
+    // Bottom
+    if (
+      x < gridSize - 1 &&
+      grid[x + 1][y] !== 'X' &&
+      grid[x + 1][y] !== 'H' &&
+      grid[x + 1][y] !== 'S'
+    ) {
+      availableCoords.push([x + 1, y]);
+    }
+    // Right
+    if (
+      y < gridSize - 1 &&
+      grid[y + 1][y] !== 'X' &&
+      grid[y + 1][y] !== 'H' &&
+      grid[y + 1][y] !== 'S'
+    ) {
+      availableCoords.push([x, y + 1]);
+    }
+    return availableCoords;
+  };
+
+  const chooseCoords = gameboard => {
+    const { grid } = gameboard;
+    let shipFound = _shipFound;
+    const shipAlignment = _shipAlignment;
+    const shipLocations = [..._shipLocations];
+    const gridSize = gameboard.grid.length;
+    let x;
+    let y;
+    const availableLocations = [];
+
+    if (!shipFound) {
+      x = getRandomCoords(0, gridSize);
+      y = getRandomCoords(0, gridSize);
+      // Ensure the grid cell's element is not already used
+      while (gameboard.grid[x][y] === 'X') {
+        x = getRandomCoords(0, gridSize);
+        y = getRandomCoords(0, gridSize);
+      }
+      if (gameboard.grid[x][y] !== 'E' && gameboard.grid[x][y] !== 'X') {
+        shipFound = true;
+        shipLocations.push([x, y]);
+      }
+      _shipFound = shipFound;
+      _shipLocations = [...shipLocations];
+    } else {
+      availableLocations = setAvailableLocations(
+        grid,
+        shipLocations,
+        shipAlignment,
+      );
+      const shipX = shipLocations[0][0];
+      const shipY = shipLocations[0][1];
+    }
+    return [x, y];
   };
 
   return {
@@ -242,16 +240,15 @@ const ComputerAI = id => {
     set shipLocations(arrIn) {
       _shipLocations = arrIn;
     },
-    get lastAttackCoords() {
-      return _lastAttackCoords;
+    get lastAttackMade() {
+      return _lastAttackMade;
     },
     // Functions
+    chooseCoords,
+    setAvailableLocations,
     getAlignment,
     getRandomAttack,
     getSearchAttack,
-    getAlignmentAttack,
-    determineAttackType,
-    countGridContents,
   };
 };
 
