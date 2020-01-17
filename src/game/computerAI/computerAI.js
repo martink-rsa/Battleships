@@ -11,7 +11,7 @@ const ComputerAI = id => {
   let _shipFound = false;
   let _shipLocations = [];
   let _shipAlignment = '';
-  let _lastAttackCoords = [];
+  let _lastRandomAttackCoords = [];
   // let _availableLocations = [];
 
   // --- Utility
@@ -22,7 +22,8 @@ const ComputerAI = id => {
     const { grid } = gameboard;
     // Get the alignment of longest available ship that can be
     //    attacked. Return the alignment as well as the first
-    //    coord of the ship
+    //    and last coord of the longest ship that has been hit
+    //    with attacks.
     let isFirstVertical = false;
     let isFirstHorizontal = false;
     let verticalCounter = 0;
@@ -98,25 +99,27 @@ const ComputerAI = id => {
     return count;
   };
 
-  // --- Controllers
-
-  const determineAttackType = gameboard => {
-    const numShips = countGridContents(gameboard, 'H');
-    let attackType = '';
-    if (numShips === 0) {
-      attackType = 'random';
-    } else if (numShips === 1) {
-      attackType = 'search';
-    } else if (numShips > 1) {
-      attackType = 'alignment';
-    }
-    return attackType;
-  };
-
   // --- Attacks
+  // 1. Random Attack:
+  //        Random Attack will be performed as the base attack when there
+  //        aren't ship cells visible to the AI. A Random Attack hitting
+  //        a ship is needed before the other two attack types
+  //        will be performed.
+  // 2. Search Attack:
+  //        Search Attack is an attack which will target North West South
+  //        East cells directly adjacent to the block found by Random
+  //        attack. Search Attacks will only take place when there is one
+  //        visible ship cell.
+  // 3. Alignment Attack:
+  //        Alignment Attacks are made once there are 2 or more ship cells
+  //        visible to the AI. When there are 2 or more cells, a
+  //        direction/ship-direction can be found. The AI will then
+  //        start attacking in either a vertical or horizontal direction.
 
   const getRandomAttack = gameboard => {
-    let lastAttackCoords = [..._lastAttackCoords];
+    // Perform a random attack when there aren't any ship parts
+    //    that have been found by the AI
+    let lastRandomAttackCoords = [..._lastRandomAttackCoords];
     const { grid } = gameboard;
     const gridSize = grid.length;
     let x = getRandomCoords(0, gridSize);
@@ -126,19 +129,18 @@ const ComputerAI = id => {
       x = getRandomCoords(0, gridSize);
       y = getRandomCoords(0, gridSize);
     }
-    lastAttackCoords = [x, y];
-    _lastAttackCoords = [...lastAttackCoords];
-
+    lastRandomAttackCoords = [x, y];
+    _lastRandomAttackCoords = [...lastRandomAttackCoords];
     return [x, y];
   };
 
   const getSearchAttack = (gameboard, baseCoords) => {
-    // Perform a NWSE search attack to find other ship
-    //    parts.
+    // Perform a NWSE search attack to find other ship parts
     const { grid } = gameboard;
     const x = baseCoords[0];
     const y = baseCoords[1];
     const gridSize = grid.length;
+    let attackCoords = [];
     // North/Top
     if (
       x > 0 &&
@@ -146,38 +148,38 @@ const ComputerAI = id => {
       grid[x - 1][y] !== 'H' &&
       grid[x - 1][y] !== 'S'
     ) {
-      return [x - 1, y];
-    }
-    // West/Left
-    if (
+      attackCoords = [x - 1, y];
+      // East/Left
+    } else if (
       y > 0 &&
       grid[x][y - 1] !== 'X' &&
       grid[x][y - 1] !== 'H' &&
       grid[x][y - 1] !== 'S'
     ) {
-      return [x, y - 1];
-    }
-    // South/Bottom
-    if (
+      attackCoords = [x, y - 1];
+      // South/Bottom
+    } else if (
       x < gridSize - 1 &&
       grid[x + 1][y] !== 'X' &&
       grid[x + 1][y] !== 'H' &&
       grid[x + 1][y] !== 'S'
     ) {
-      return [x + 1, y];
-    }
-    // East/Right
-    if (
+      attackCoords = [x + 1, y];
+      // West/Right
+    } else if (
       y < gridSize - 1 &&
       grid[x][y + 1] !== 'X' &&
       grid[x][y + 1] !== 'H' &&
       grid[x][y + 1] !== 'S'
     ) {
-      return [x, y + 1];
+      attackCoords = [x, y + 1];
     }
+    return attackCoords;
   };
 
   const getAlignmentAttack = (gameboard, alignment, startCoords, endCoords) => {
+    // AI will try to follow a horizontal or vertical path so it
+    //    can sink a ship, instead of going off in the wrong direction.
     const { grid } = gameboard;
     const gridLength = grid.length;
     const startX = startCoords[0];
@@ -222,6 +224,47 @@ const ComputerAI = id => {
     return attackCoords;
   };
 
+  // --- Controllers
+  // 1. Determine Attack Type:
+  //        determineAttackType() will determine which attack should be
+  //        based on how many ship cell hits have taken place.
+  // 2. Perform AI Attack:
+  //        performAIAttack() will initiate the attack type that was
+  //        determined by determineAttackType.
+
+  const determineAttackType = gameboard => {
+    const numShips = countGridContents(gameboard, 'H');
+    let attackType = '';
+    if (numShips === 0) {
+      attackType = 'random';
+    } else if (numShips === 1) {
+      attackType = 'search';
+    } else if (numShips > 1) {
+      attackType = 'alignment';
+    }
+    return attackType;
+  };
+
+  const performAIAttack = gameboard => {
+    const attackType = determineAttackType(gameboard);
+    let attackCoords = [];
+    if (attackType === 'random') {
+      attackCoords = getRandomAttack(gameboard);
+    } else if (attackType === 'search') {
+      const lastRandomAttackCoords = [..._lastRandomAttackCoords];
+      attackCoords = getSearchAttack(gameboard, lastRandomAttackCoords);
+    } else if (attackType === 'alignment') {
+      const alignmentObj = getAlignment(gameboard);
+      attackCoords = getAlignmentAttack(
+        gameboard,
+        alignmentObj[0],
+        alignmentObj[1],
+        alignmentObj[2],
+      );
+    }
+    gameboard.receiveAttack(attackCoords);
+  };
+
   return {
     // Variables
     get id() {
@@ -242,8 +285,11 @@ const ComputerAI = id => {
     set shipLocations(arrIn) {
       _shipLocations = arrIn;
     },
-    get lastAttackCoords() {
-      return _lastAttackCoords;
+    get lastRandomAttackCoords() {
+      return _lastRandomAttackCoords;
+    },
+    set lastRandomAttackCoords(arrIn) {
+      _lastRandomAttackCoords = arrIn;
     },
     // Functions
     getAlignment,
@@ -252,6 +298,7 @@ const ComputerAI = id => {
     getAlignmentAttack,
     determineAttackType,
     countGridContents,
+    performAIAttack,
   };
 };
 

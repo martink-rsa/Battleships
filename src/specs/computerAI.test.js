@@ -129,7 +129,6 @@ describe('ComputerAI: determineAttackType() (AI chooses correct attack)', () => 
     const newGameboardPlayer = Gameboard(0, size);
     const computerAI = ComputerAI(0);
     const AIAttack = computerAI.determineAttackType(newGameboardPlayer);
-    // const lastAttackType = computerAI.lastAttackType;
     expect(AIAttack).toBe('random');
   });
   test('getSearchAttack() is chosen if only one ship hit exists', () => {
@@ -138,7 +137,6 @@ describe('ComputerAI: determineAttackType() (AI chooses correct attack)', () => 
     const computerAI = ComputerAI(0);
     newGameboardPlayer.grid[3][3] = 'H';
     const AIAttack = computerAI.determineAttackType(newGameboardPlayer);
-    // const lastAttackType = computerAI.lastAttackType;
     expect(AIAttack).toBe('search');
   });
   test('getSearchAttack() is chosen if more than one ship hit exists', () => {
@@ -148,7 +146,6 @@ describe('ComputerAI: determineAttackType() (AI chooses correct attack)', () => 
     newGameboardPlayer.grid[3][3] = 'H';
     newGameboardPlayer.grid[3][4] = 'H';
     const AIAttack = computerAI.determineAttackType(newGameboardPlayer);
-    // const lastAttackType = computerAI.lastAttackType;
     expect(AIAttack).toBe('alignment');
   });
 });
@@ -165,18 +162,18 @@ describe('ComputerAI: randomAttack()', () => {
       computerAI.getRandomAttack(newGameboardPlayer),
     );
     let attackFound = false;
-    let lastAttackCoords = [];
+    let lastRandomAttackCoords = [];
     for (let i = 0; i < size; i += 1) {
       for (let j = 0; j < size; j += 1) {
         if (newGameboardPlayer.grid[i][j] === 'X') {
           attackFound = true;
-          lastAttackCoords = [i, j];
+          lastRandomAttackCoords = [i, j];
         }
       }
     }
-    const expectedLastAttack = computerAI.lastAttackCoords;
+    const expectedLastAttack = computerAI.lastRandomAttackCoords;
     expect(attackFound).toBe(true);
-    expect(expectedLastAttack).toStrictEqual(lastAttackCoords);
+    expect(expectedLastAttack).toStrictEqual(lastRandomAttackCoords);
   });
   test('Computer AI will perform a random attack when only one spot available', () => {
     const size = 8;
@@ -290,6 +287,39 @@ describe('ComputerAI: getAlignmentAttack (Get the correct positions of the end p
     );
     expect(alignmentCoords).toStrictEqual([6, 3]);
   });
+  test('Attack is made south/bottom of the ship when ship starts on the boundary', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.grid[0][3] = 'H';
+    newGameboardPlayer.grid[1][3] = 'H';
+    newGameboardPlayer.grid[2][3] = 'H';
+    const alignmentObj = computerAI.getAlignment(newGameboardPlayer);
+    const alignmentCoords = computerAI.getAlignmentAttack(
+      newGameboardPlayer,
+      alignmentObj[0],
+      alignmentObj[1],
+      alignmentObj[2],
+    );
+    expect(alignmentCoords).toStrictEqual([3, 3]);
+  });
+  test('Attack is made south/bottom of the ship when last attack is on the boundary', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.grid[3][3] = 'X';
+    newGameboardPlayer.grid[4][3] = 'H';
+    newGameboardPlayer.grid[5][3] = 'H';
+    newGameboardPlayer.grid[6][3] = 'H';
+    const alignmentObj = computerAI.getAlignment(newGameboardPlayer);
+    const alignmentCoords = computerAI.getAlignmentAttack(
+      newGameboardPlayer,
+      alignmentObj[0],
+      alignmentObj[1],
+      alignmentObj[2],
+    );
+    expect(alignmentCoords).toStrictEqual([7, 3]);
+  });
   test('Attack is made west/left of the ship', () => {
     const size = 8;
     const newGameboardPlayer = Gameboard(0, size);
@@ -324,5 +354,102 @@ describe('ComputerAI: getAlignmentAttack (Get the correct positions of the end p
       alignmentObj[2],
     );
     expect(alignmentCoords).toStrictEqual([3, 6]);
+  });
+  test('Attack is made east/right of the ship when ship starts on the boundary', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.grid[3][0] = 'H';
+    newGameboardPlayer.grid[3][1] = 'H';
+    newGameboardPlayer.grid[3][2] = 'H';
+    newGameboardPlayer.grid[3][3] = 'H';
+    const alignmentObj = computerAI.getAlignment(newGameboardPlayer);
+    const alignmentCoords = computerAI.getAlignmentAttack(
+      newGameboardPlayer,
+      alignmentObj[0],
+      alignmentObj[1],
+      alignmentObj[2],
+    );
+    expect(alignmentCoords).toStrictEqual([3, 4]);
+  });
+  test('Attack is made east/right of the ship when last attack is on the boundary', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.grid[3][3] = 'X';
+    newGameboardPlayer.grid[3][4] = 'H';
+    newGameboardPlayer.grid[3][5] = 'H';
+    newGameboardPlayer.grid[3][6] = 'H';
+    const alignmentObj = computerAI.getAlignment(newGameboardPlayer);
+    const alignmentCoords = computerAI.getAlignmentAttack(
+      newGameboardPlayer,
+      alignmentObj[0],
+      alignmentObj[1],
+      alignmentObj[2],
+    );
+    expect(alignmentCoords).toStrictEqual([3, 7]);
+  });
+});
+
+// ComputerAI: performAIAttack() Test if the AI will go through the correct attack types
+describe('ComputerAI: performAIAttack() (Perform the correct attack type choices)', () => {
+  test('AI will perform a single search attack', () => {
+    const size = 8;
+    // const newPlayerHuman = Player(0, 'human', 'default', 'blue');
+    const newGameboardPlayer = Gameboard(0, size);
+    const newShip = Ship(0, 4, [], false, 'vertical');
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.placeShip(newShip, [3, 3]);
+    newGameboardPlayer.receiveAttack([3, 3]);
+    computerAI.lastRandomAttackCoords = [3, 3];
+    expect(newGameboardPlayer.grid[3][3]).toBe('H');
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[2][3]).toBe('X');
+  });
+  test('AI will perform search and alignment attacks', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const newShip = Ship(0, 4, [], false, 'vertical');
+    const computerAI = ComputerAI(0);
+    newGameboardPlayer.placeShip(newShip, [3, 3]);
+    newGameboardPlayer.receiveAttack([3, 3]);
+    expect(newGameboardPlayer.grid[3][3]).toBe('H');
+    computerAI.lastRandomAttackCoords = [3, 3];
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[2][3]).toBe('X');
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[3][2]).toBe('X');
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[4][3]).toBe('H');
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[5][3]).toBe('H');
+    computerAI.performAIAttack(newGameboardPlayer);
+    expect(newGameboardPlayer.grid[6][3]).toBe('S');
+  });
+  test('AI will perform random, search and alignment attacks until ship has sunk', () => {
+    const size = 8;
+    const newGameboardPlayer = Gameboard(0, size);
+    const newShip = Ship(0, 4, [], false, 'vertical');
+    newGameboardPlayer.placeShip(newShip, [3, 3]);
+    const computerAI = ComputerAI(0);
+    let shipFound = false;
+    const checkBoard = () => {
+      for (let i = 0; i < size; i += 1) {
+        for (let j = 0; j < size; j += 1) {
+          if (newGameboardPlayer.grid[i][j] === 'H') {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+    while (shipFound === false) {
+      computerAI.performAIAttack(newGameboardPlayer);
+      shipFound = checkBoard();
+    }
+    while (newGameboardPlayer.grid[3][3] !== 'S') {
+      computerAI.performAIAttack(newGameboardPlayer);
+    }
+    expect(newGameboardPlayer.grid[3][3]).toBe('S');
   });
 });
