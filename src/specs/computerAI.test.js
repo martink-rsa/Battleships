@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-commented-out-tests */
-import { Gameboard } from '../game/gameboard/gameboard';
-import { Ship } from '../game/ship/ship';
-import { Player } from '../game/player/player';
-import { ComputerAI } from '../game/computerAI/computerAI';
+import Gameboard from '../game/gameboard/gameboard';
+import Ship from '../game/ship/ship';
+import Player from '../game/player/player';
+import ComputerAI from '../game/computerAI/computerAI';
 
 // ComputerAI: getAlignment() Find which alignment to keep attacking
 describe('ComputerAI: getAlignment() (set alignment from longest ships attacked)', () => {
@@ -451,5 +451,6 @@ describe('ComputerAI: performAIAttack() (Perform the correct attack type choices
       computerAI.performAIAttack(newGameboardPlayer);
     }
     expect(newGameboardPlayer.grid[3][3]).toBe('S');
+    expect(newGameboardPlayer.allShipsSunk()).toEqual(true);
   });
 });

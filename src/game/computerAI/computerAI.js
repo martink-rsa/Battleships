@@ -1,16 +1,12 @@
 /* eslint-disable wrap-iife */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-underscore-dangle */
-/* eslint no-else-return: "error" */
-import { Gameboard } from '../gameboard/gameboard';
-import { Player } from '../player/player';
 import { genRandNum } from '../utility/utility';
 
 const ComputerAI = id => {
   const _id = id;
   let _shipFound = false;
   let _shipLocations = [];
-  let _shipAlignment = '';
   let _lastRandomAttackCoords = [];
   // let _availableLocations = [];
 
@@ -49,17 +45,6 @@ const ComputerAI = id => {
           horizontalCoordEnd = [i, j];
           horizontalCounter += 1;
         }
-      }
-      if (horizontalCounter > longestHorizontal) {
-        longestHorizontal = horizontalCounter;
-        savedHorizontalCoordStart = horizontalCoordStart;
-        savedHorizontalCoordEnd = horizontalCoordEnd;
-      }
-      horizontalCounter = 0;
-      isFirstHorizontal = true;
-    }
-    for (let i = 0; i < grid.length; i += 1) {
-      for (let j = 0; j < grid.length; j += 1) {
         if (grid[j][i] === 'H') {
           if (isFirstVertical === true) {
             isFirstVertical = false;
@@ -69,11 +54,18 @@ const ComputerAI = id => {
           verticalCounter += 1;
         }
       }
+      if (horizontalCounter > longestHorizontal) {
+        longestHorizontal = horizontalCounter;
+        savedHorizontalCoordStart = horizontalCoordStart;
+        savedHorizontalCoordEnd = horizontalCoordEnd;
+      }
       if (verticalCounter > longestVertical) {
         longestVertical = verticalCounter;
         savedVerticalCoordStart = verticalCoordStart;
         savedVerticalCoordEnd = verticalCoordEnd;
       }
+      horizontalCounter = 0;
+      isFirstHorizontal = true;
       verticalCounter = 0;
       isFirstVertical = true;
     }
@@ -279,9 +271,6 @@ const ComputerAI = id => {
     get shipLocations() {
       return _shipLocations;
     },
-    get shipAlignment() {
-      return _shipAlignment;
-    },
     set shipLocations(arrIn) {
       _shipLocations = arrIn;
     },
@@ -302,4 +291,4 @@ const ComputerAI = id => {
   };
 };
 
-export { ComputerAI };
+export default ComputerAI;

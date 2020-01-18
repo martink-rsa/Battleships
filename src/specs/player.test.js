@@ -1,6 +1,5 @@
-import { Gameboard } from '../game/gameboard/gameboard';
-import { Ship } from '../game/ship/ship';
-import { Player } from '../game/player/player';
+import Gameboard from '../game/gameboard/gameboard';
+import Player from '../game/player/player';
 
 // Player: Player Object Creation
 describe('Player: Human player is created', () => {
@@ -100,7 +99,7 @@ describe('Player: madeAttack() (Player makes attack to grid) ', () => {
   });
 
   // Multiple attacks from multiple players
-  test('Player 1 makes attacks successfully to grid #2', () => {
+  test('Player 1 and Player 2makes attacks successfully to grid', () => {
     const newPlayer1 = Player(0, 'human', 'default', 'blue');
     const newPlayer2 = Player(1, 'computer', 'default', 'blue');
     const newGameboard1 = Gameboard(0, 8);
@@ -135,5 +134,17 @@ describe('Player: madeAttack() (Player makes attack to grid) ', () => {
     expect(newGameboard1.grid[0][3]).toBe('X');
     expect(newPlayer1.attacksMade).toEqual(attacks1);
     expect(newPlayer2.attacksMade).toEqual(attacks2);
+  });
+});
+
+// Player: Play ends turn
+describe('Player: Player will end turn', () => {
+  test('Player 1 will start turn and end turn artificially', () => {
+    const newPlayer1 = Player(0, 'human', 'default', 'blue');
+    expect(newPlayer1.playTurn).toBe(false);
+    newPlayer1.startTurn();
+    expect(newPlayer1.playTurn).toBe(true);
+    newPlayer1.endTurn();
+    expect(newPlayer1.playTurn).toBe(false);
   });
 });

@@ -1,5 +1,5 @@
-import { Gameboard } from '../game/gameboard/gameboard';
-import { Ship } from '../game/ship/ship';
+import Gameboard from '../game/gameboard/gameboard';
+import Ship from '../game/ship/ship';
 
 // Gameboard Creation
 describe('Gameboard: Game board creation', () => {

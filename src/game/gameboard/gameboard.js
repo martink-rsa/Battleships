@@ -14,7 +14,7 @@ const Gameboard = (playerID, size) => {
   const _playerID = playerID;
   let _ships = [];
   let _grid = (() => {
-    // Generate an empty grid
+    // Generate an empty grid ('E' is an empty cell)
     const grid = [];
     for (let i = 0; i < size; i += 1) {
       grid[i] = [];
@@ -151,4 +151,4 @@ const Gameboard = (playerID, size) => {
   };
 };
 
-export { Gameboard };
+export default Gameboard;

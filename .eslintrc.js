@@ -19,6 +19,7 @@ module.exports = {
   plugins: ['react', 'jest'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'operator-linebreak': ['error', 'after'],
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',

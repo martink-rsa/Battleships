@@ -1,11 +1,14 @@
 import React from 'react';
-
-export const Ship = () => {
-  return 'ship';
-};
+import GameScreen from '../GameScreen/GameScreen';
+import Game from '../../game/game';
 
 const Battleships = () => {
-  return <div>Battleships</div>;
+  return (
+    <div>
+      <h1>Battleships</h1>
+      <GameScreen />
+    </div>
+  );
 };
 
 export default Battleships;

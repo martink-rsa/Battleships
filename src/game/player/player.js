@@ -1,13 +1,13 @@
 /* eslint-disable wrap-iife */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-underscore-dangle */
-import { Gameboard } from '../gameboard/gameboard';
 
 const Player = (id, playerType, theme, color) => {
   const _id = id;
   const _playerType = playerType;
   const _theme = theme;
   const _color = color;
+  let _playTurn = false;
   let _attacksMade = [];
 
   const makeAttack = (gameboard, coords) => {
@@ -16,6 +16,16 @@ const Player = (id, playerType, theme, color) => {
     attacksMade.push(coords);
     _attacksMade = [...attacksMade];
   };
+
+  const startTurn = () => {
+    _playTurn = true;
+  };
+
+  const endTurn = () => {
+    _playTurn = false;
+  };
+
+  // const endT
 
   return {
     // Variables
@@ -34,9 +44,14 @@ const Player = (id, playerType, theme, color) => {
     get attacksMade() {
       return _attacksMade;
     },
+    get playTurn() {
+      return _playTurn;
+    },
     // Functions
     makeAttack,
+    startTurn,
+    endTurn,
   };
 };
 
-export { Player };
+export default Player;

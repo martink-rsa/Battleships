@@ -59,4 +59,4 @@ const Ship = (id, length, hits, sunk, alignment) => {
   };
 };
 
-export { Ship };
+export default Ship;

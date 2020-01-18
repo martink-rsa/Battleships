@@ -1,4 +1,4 @@
-import { Ship } from '../game/ship/ship';
+import Ship from '../game/ship/ship';
 
 // Ship: Object creation tests
 describe('Ship: Object creation', () => {
