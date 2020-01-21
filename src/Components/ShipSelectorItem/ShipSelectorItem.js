@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -8,11 +9,6 @@ const useStyles = makeStyles(() => ({
     margin: 0,
     width: '100%',
     height: '100%',
-  },
-  paper: {
-    padding: 0,
-    margin: 0,
-    // backgroundColor: 'rgba(255,255,255,0.8)',
   },
   container: {
     display: 'flex',
@@ -99,8 +95,8 @@ const ShipSelectorItem = props => {
   const { id, ship, size, handleSelection, enabled, selectedIndex } = props;
   const altTag = `${size} Block Ship`;
 
-  const getSelectionButton = () => {
-    console.log('getSelectionButton');
+  const generateSelectionButton = () => {
+    console.log('sI: ' + selectedIndex);
     if (selectedIndex === id) {
       return (
         <SelectionButton
@@ -137,31 +133,16 @@ const ShipSelectorItem = props => {
     );
   };
 
-  return (
-    <div className={classes.container}>
-      {getSelectionButton()}
-      {/* {enabled ? (
-        <SelectionButton
-          variant="contained"
-          onClick={() => handleSelection(id)}
-        >
-          <div className={classes.shipContainer}>
-            <img src={ship} alt={altTag} />
-            <div className={classes.block} />
-            <div>x{size}</div>
-          </div>
-        </SelectionButton>
-      ) : (
-        <SelectionButton variant="contained" disabled>
-          <div className={classes.shipContainerDisabled}>
-            <img src={ship} alt={altTag} />
-            <div className={classes.block} />
-            <div>x{size}</div>
-          </div>
-        </SelectionButton>
-      )} */}
-    </div>
-  );
+  return <div className={classes.container}>{generateSelectionButton()}</div>;
 };
 
 export default ShipSelectorItem;
+
+ShipSelectorItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  ship: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  handleSelection: PropTypes.func.isRequired,
+  enabled: PropTypes.bool.isRequired,
+  selectedIndex: PropTypes.number.isRequired,
+};

@@ -4,13 +4,7 @@ import ShipSelector from '../ShipSelector/ShipSelector';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const Placement = props => {
-  const {
-    gameboards,
-    setGameboards,
-    players,
-    startGampeplay,
-    startGameplay,
-  } = props;
+  const { gameboards, setGameboards, players, startGameplay } = props;
 
   return (
     <div>
@@ -20,8 +14,8 @@ const Placement = props => {
         players={players}
         startGameplay={startGameplay}
       />
-      <MainActionBar buttonText="Play" handleClick={startGameplay} />
-      <ShipSelector />
+      {/* <MainActionBar buttonText="Play" handleClick={startGameplay} />
+      <ShipSelector /> */}
     </div>
   );
 };

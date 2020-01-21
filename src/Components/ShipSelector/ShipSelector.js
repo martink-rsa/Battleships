@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import ShipSelectorItem from '../ShipSelectorItem/ShipSelectorItem';
-import Ship0Selector from '../../Assets/Images/selection_0.png';
-import Ship1Selector from '../../Assets/Images/selection_1.png';
-import Ship2Selector from '../../Assets/Images/selection_2.png';
-import Ship3Selector from '../../Assets/Images/selection_3.png';
+import SwapVertIcon from '@material-ui/icons/SwapVert';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles(() => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'center',
-    height: '130px',
+    height: '170px',
   },
   container: {
     height: '100%',
@@ -37,25 +36,51 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ShipSelector = props => {
-  const [shipItems, setShipItems] = useState([
-    { id: 0, ship: Ship0Selector, size: 5, enabled: true },
-    { id: 1, ship: Ship1Selector, size: 4, enabled: true },
-    { id: 2, ship: Ship2Selector, size: 3, enabled: false },
-    { id: 3, ship: Ship3Selector, size: 2, enabled: true },
-  ]);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const AlignmentButton = withStyles({
+  root: {
+    margin: '10px 8px',
+    minWidth: 'initial',
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: '#007bff',
+    borderColor: '#007bff',
+    '&:hover': {
+      backgroundColor: '#0069d9',
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
+    },
+    '&:focus': {
+      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+  },
+})(Button);
 
+const ShipSelector = props => {
   const classes = useStyles();
 
-  const handleSelection = id => {
-    // setSelectedIndex(id);
-  };
+  const { shipItems, handleSelection, selectedIndex, changeAlignment } = props;
+  // const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.container}>
-        <div className={classes.title}>Ship Selection</div>
+        <div className={classes.title}>
+          <AlignmentButton onClick={() => changeAlignment('vertical')}>
+            <SwapVertIcon />
+          </AlignmentButton>
+          <AlignmentButton onClick={() => changeAlignment('horizontal')}>
+            <SwapHorizIcon />
+          </AlignmentButton>
+        </div>
         <div className={classes.shipsContainer}>
           {shipItems.map(item => {
             return (
@@ -70,38 +95,6 @@ const ShipSelector = props => {
               />
             );
           })}
-          {/* <ShipSelectorItem
-            id="0"
-            ship={Ship0Selector}
-            size="5"
-            handleSelection={handleSelection}
-            enabled={true}
-            selectedIndex={selectedIndex}
-          />
-          <ShipSelectorItem
-            id="1"
-            ship={Ship1Selector}
-            size="4"
-            handleSelection={handleSelection}
-            enabled={true}
-            selectedIndex={selectedIndex}
-          />
-          <ShipSelectorItem
-            id="2"
-            ship={Ship2Selector}
-            size="3"
-            handleSelection={handleSelection}
-            enabled={false}
-            selectedIndex={selectedIndex}
-          />
-          <ShipSelectorItem
-            id="3"
-            ship={Ship3Selector}
-            size="2"
-            handleSelection={handleSelection}
-            enabled={true}
-            selectedIndex={selectedIndex}
-          /> */}
         </div>
       </div>
     </div>

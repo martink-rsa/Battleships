@@ -109,10 +109,7 @@ const GameMain = props => {
 
   return (
     <div className={classes.mainWrapper}>
-      <div className={classes.mainContainer}>
-        {/* <PlayerSelection /> */}
-        {renderGameState(gameState)}
-      </div>
+      <div className={classes.mainContainer}>{renderGameState(gameState)}</div>
     </div>
   );
 };

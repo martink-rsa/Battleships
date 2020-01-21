@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    background: 'black',
+    // background: 'black',
   },
 }));
 
@@ -45,21 +45,19 @@ const HiddenButton = withStyles({
   root: {
     boxShadow: 'none',
     textTransform: 'none',
-    padding: '0px',
-    margin: '0px',
+    padding: '0',
+    margin: '0',
     minWidth: 'initial',
     height: '100%',
     width: '100%',
-    backgroundColor: 'none',
-    borderColor: 'none',
+    transition: 'none',
     '&:hover': {
-      backgroundColor: '#0069d9',
-      borderColor: '#0062cc',
-      boxShadow: 'none',
+      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
     },
     '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#0062cc',
+      boxSizing: 'border-box',
+      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
+      backgroundColor: 'rgba(0,0,0,0.3)',
       borderColor: '#005cbf',
     },
     '&:focus': {
@@ -70,36 +68,45 @@ const HiddenButton = withStyles({
 
 const Board = props => {
   const classes = useStyles();
-  // const [board, setBoards] = useState(props.gameboards[0].grid);
 
   // Generate the gameboard
-  const generateBoard = grid => {
+  const generateBoard = gameboard => {
+    const { boardIndex } = props;
+    const grid = gameboard.grid;
     const newBoard = [];
     const size = 8;
     for (let i = 0; i < size; i += 1) {
       for (let j = 0; j < size; j += 1) {
-        newBoard.push({ key: `${i} ${j}`, content: grid[i][j] });
+        // Need to get the alignment of the ship so the
+        //    tile can be properly rotated
+        const gridContent = grid[i][j].split('')[0];
+        let alignment = 'vertical';
+        if (gridContent !== 'E' && gridContent[0] !== 'H') {
+          const shipObj = gameboard.getShip(parseInt(gridContent, 10));
+          alignment = shipObj.ship.alignment;
+        }
+        newBoard.push({
+          key: `${i} ${j}`,
+          content: grid[i][j],
+          alignment,
+        });
       }
     }
     return newBoard;
   };
 
-  /* const handleClick = e => {
-    props.handleClick(e);
-  }; */
-
   return (
     <div>
       <Paper>
         <div className={classes.boardGrid}>
-          {generateBoard(props.grid).map(item => (
+          {generateBoard(props.gameboards[props.boardIndex]).map(item => (
             <div key={item.key} className={classes.boardCell}>
               <HiddenButton
                 disableRipple
-                onClick={props.handleClick}
+                onClick={props.handleBoardClick}
                 value={item.key}
               >
-                <GameTile content={item.content} />
+                <GameTile content={item.content} alignment={item.alignment} />
               </HiddenButton>
             </div>
           ))}
