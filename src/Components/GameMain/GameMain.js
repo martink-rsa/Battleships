@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-begin',
     alignItems: 'center',
-    height: '100%',
+    height: 'auto',
     width: '100%',
     // background: 'rgba(255,255,255,0.1)',
   },
@@ -71,6 +71,14 @@ const GameMain = props => {
     changeGameState('placement');
   };
 
+  const startGameplay = () => {
+    changeGameState('gameplay');
+  };
+
+  const handleAttack = coords => {
+    console.log(coords);
+  };
+
   const renderGameState = currentGameState => {
     switch (currentGameState) {
       case 'intro':
@@ -83,17 +91,20 @@ const GameMain = props => {
           />
         );
       case 'placement':
-        return <Placement gameboards={gameboards} players={players} />;
+        return (
+          <Placement
+            gameboards={gameboards}
+            setGameboards={setGameboards}
+            players={players}
+            startGameplay={startGameplay}
+          />
+        );
       case 'gameplay':
-        return <Gameplay />;
+        return <Gameplay handleAttack={handleAttack} />;
       default:
         throw new Error('Error: Incorrect game state passed');
     }
     //
-  };
-
-  const handleAttack = coords => {
-    console.log(coords);
   };
 
   return (

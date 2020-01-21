@@ -1,18 +1,27 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import BoardPlacement from '../BoardPlacement/BoardPlacement';
+import ShipSelector from '../ShipSelector/ShipSelector';
+import MainActionBar from '../MainActionBar/MainActionBar';
 
 const Placement = props => {
-  const startGameplay = () => {
-    console.log('START GAMEPLAY');
-  };
+  const {
+    gameboards,
+    setGameboards,
+    players,
+    startGampeplay,
+    startGameplay,
+  } = props;
+
   return (
     <div>
-      {/* <h3>Placement</h3> */}
-      <BoardPlacement gameboards={props.gameboards} players={props.players} />
-      <Button variant="contained" onClick={startGameplay}>
-        Go to Gameplay
-      </Button>
+      <BoardPlacement
+        gameboards={gameboards}
+        setGameboards={setGameboards}
+        players={players}
+        startGameplay={startGameplay}
+      />
+      <MainActionBar buttonText="Play" handleClick={startGameplay} />
+      <ShipSelector />
     </div>
   );
 };

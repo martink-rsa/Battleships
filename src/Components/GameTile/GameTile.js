@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Water from '../../Assets/Images/Tiles/Water2.png';
+import Ship00 from '../../Assets/Images/Tiles/0_0.png';
+import Ship01 from '../../Assets/Images/Tiles/0_1.png';
+import Ship02 from '../../Assets/Images/Tiles/0_2.png';
+import Ship03 from '../../Assets/Images/Tiles/0_3.png';
+import Ship04 from '../../Assets/Images/Tiles/0_4.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,54 +22,55 @@ const useStyles = makeStyles(() => ({
     margin: 0,
     padding: 0,
   },
-  ship: {
-    background: 'gray',
+  ship00: {
+    backgroundImage: `url(${Ship00})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  ship01: {
+    backgroundImage: `url(${Ship01})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  ship02: {
+    backgroundImage: `url(${Ship02})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  ship03: {
+    backgroundImage: `url(${Ship03})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  ship04: {
+    backgroundImage: `url(${Ship04})`,
+    backgroundRepeat: 'no-repeat',
     height: '50px',
     width: '50px',
   },
 }));
 
-/* const HiddenButton = withStyles({
-  root: {
-    boxShadow: 'none',
-    textTransform: 'none',
-    // fontSize: 16,
-    // padding: '6px 12px',
-    padding: '0px',
-    margin: '0px',
-    minWidth: 'initial',
-    height: '100%',
-    width: '100%',
-    // border: '1px solid',
-    // lineHeight: 1.5,
-    backgroundColor: 'none',
-    borderColor: 'none',
-    '&:hover': {
-      backgroundColor: '#0069d9',
-      borderColor: '#0062cc',
-      boxShadow: 'none',
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#0062cc',
-      borderColor: '#005cbf',
-    },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
-  },
-})(Button); */
-
 const GameTile = props => {
   const classes = useStyles();
-  // const [board, setBoards] = useState(props.gameboards[0].grid);
   const { content } = props;
 
-  const getGameTile = c => {
-    if (c === 'E') {
-      return <span className={classes.water} />;
+  const getGameTile = tileType => {
+    if (tileType === 'E') {
+      // return <span className={classes.water} />;
+      return <span></span>;
+    } else {
+      const shipTypeIndex = tileType.split('')[0];
+      const shipPartIndex = tileType.split('')[1];
+      console.log(shipTypeIndex);
+      console.log(shipPartIndex);
+      return (
+        <span className={classes[`ship${shipTypeIndex}${shipPartIndex}`]} />
+      );
     }
-    return <span className={classes.ship} />;
   };
 
   return getGameTile(content);

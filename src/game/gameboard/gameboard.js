@@ -41,16 +41,19 @@ const Gameboard = (playerID, size) => {
     const ships = [..._ships];
     const { id, length, alignment } = ship;
     const coords = [];
+    let partIndex = 0;
     // Place the ship
     if (alignment === 'vertical') {
       for (let i = x; i < x + length; i += 1) {
-        grid[i][y] = id;
+        grid[i][y] = `${id}${partIndex}`;
         coords.push([i, y]);
+        partIndex += 1;
       }
     } else if (alignment === 'horizontal') {
       for (let i = y; i < y + length; i += 1) {
-        grid[x][i] = id;
+        grid[x][i] = `${id}${partIndex}`;
         coords.push([x, i]);
+        partIndex += 1;
       }
     }
     // Add the ship to the array of ships
@@ -96,10 +99,14 @@ const Gameboard = (playerID, size) => {
       // Empty tile attacked
       grid[x][y] = 'X';
     } else {
-      const shipObj = getShip(gridContent);
+      const shipIndex = parseInt(gridContent.split(''), 10);
+      // console.log(shipIndex);
+      const shipObj = getShip(shipIndex);
       let attackIndex = -1;
       for (let i = 0; i < shipObj.coords.length; i += 1) {
-        if (shipObj.coords[i][0] === x && shipObj.coords[i][1] === y) {
+        const shipCoordsX = shipObj.coords[i][0];
+        const shipCoordsY = shipObj.coords[i][1];
+        if (shipCoordsX === x && shipCoordsY === y) {
           attackIndex = i;
         }
       }

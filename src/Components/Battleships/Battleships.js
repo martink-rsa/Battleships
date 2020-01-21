@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     height: 'auto',
   },
   bg: {
-    height: '100%',
+    height: 'auto',
     backgroundImage: `url(${BackgroundT1})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center top',
@@ -23,7 +23,6 @@ const Battleships = () => {
   return (
     <div className={classes.bg}>
       <Container maxWidth="sm" className={classes.container}>
-        {/* <h1>Battleships</h1> */}
         <GameMain />
       </Container>
     </div>

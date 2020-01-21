@@ -36,7 +36,6 @@ describe('Gameboard: Ship placement', () => {
   test('Ship can be placed vertically #1', () => {
     const newGameboard = Gameboard(0, 8);
     const newShip = Ship(0, 4, [], false, 'vertical');
-    const { id } = newShip;
     const coords = [
       [0, 0],
       [1, 0],
@@ -45,10 +44,10 @@ describe('Gameboard: Ship placement', () => {
     ];
     newGameboard.placeShip(newShip, [0, 0]);
     expect(newGameboard.grid).toEqual([
-      [id, 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      [id, 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      [id, 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      [id, 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
+      ['00', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
+      ['01', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
+      ['02', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
+      ['03', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
@@ -72,10 +71,10 @@ describe('Gameboard: Ship placement', () => {
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      ['E', 'E', 'E', 'E', id, 'E', 'E', 'E'],
-      ['E', 'E', 'E', 'E', id, 'E', 'E', 'E'],
-      ['E', 'E', 'E', 'E', id, 'E', 'E', 'E'],
-      ['E', 'E', 'E', 'E', id, 'E', 'E', 'E'],
+      ['E', 'E', 'E', 'E', '00', 'E', 'E', 'E'],
+      ['E', 'E', 'E', 'E', '01', 'E', 'E', 'E'],
+      ['E', 'E', 'E', 'E', '02', 'E', 'E', 'E'],
+      ['E', 'E', 'E', 'E', '03', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
     ]);
     expect(newGameboard.ships[0].coords).toEqual(coords);
@@ -93,7 +92,7 @@ describe('Gameboard: Ship placement', () => {
     ];
     newGameboard.placeShip(newShip, [0, 0]);
     expect(newGameboard.grid).toEqual([
-      [id, id, id, id, 'E', 'E', 'E', 'E'],
+      ['00', '01', '02', '03', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
@@ -119,7 +118,7 @@ describe('Gameboard: Ship placement', () => {
     expect(newGameboard.grid).toEqual([
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      ['E', 'E', 'E', id, id, id, id, 'E'],
+      ['E', 'E', 'E', '00', '01', '02', '03', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
@@ -166,13 +165,13 @@ describe('Gameboard: Ship placement', () => {
     ];
     expect(newGameboard.grid).toEqual([
       ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'],
-      ['E', 'E', 'E', 0, 'E', 'E', 'E', 'E'],
-      ['E', 'E', 'E', 'E', 'E', 3, 'E', 'E'],
-      ['E', 1, 1, 'E', 'E', 3, 'E', 'E'],
-      ['E', 'E', 'E', 'E', 'E', 3, 'E', 4],
-      [2, 2, 2, 2, 'E', 3, 'E', 4],
-      ['E', 'E', 'E', 'E', 'E', 'E', 'E', 4],
-      ['E', 'E', 'E', 'E', 'E', 'E', 'E', 4],
+      ['E', 'E', 'E', '00', 'E', 'E', 'E', 'E'],
+      ['E', 'E', 'E', 'E', 'E', '30', 'E', 'E'],
+      ['E', '10', '11', 'E', 'E', '31', 'E', 'E'],
+      ['E', 'E', 'E', 'E', 'E', '32', 'E', '40'],
+      ['20', '21', '22', '23', 'E', '33', 'E', '41'],
+      ['E', 'E', 'E', 'E', 'E', 'E', 'E', '42'],
+      ['E', 'E', 'E', 'E', 'E', 'E', 'E', '43'],
     ]);
     expect(newGameboard.ships[0].coords).toEqual(coords0);
     expect(newGameboard.ships[0].ship).toEqual(newShip0);

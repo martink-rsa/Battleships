@@ -1,8 +1,9 @@
 import React from 'react';
-import Board from '../BoardPlay/BoardPlay';
+import BoardPlay from '../BoardPlay/BoardPlay';
 
 const Gameplay = props => {
-  return <Board handleAttack={props.handleAttack} />;
+  const { handleAttack } = props;
+  return <BoardPlay handleAttack={handleAttack} />;
 };
 
 export default Gameplay;
