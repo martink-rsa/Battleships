@@ -96,7 +96,6 @@ const ShipSelectorItem = props => {
   const altTag = `${size} Block Ship`;
 
   const generateSelectionButton = () => {
-    console.log('sI: ' + selectedIndex);
     if (selectedIndex === id) {
       return (
         <SelectionButton

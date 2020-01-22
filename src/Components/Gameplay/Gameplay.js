@@ -1,9 +1,71 @@
 import React from 'react';
 import BoardPlay from '../BoardPlay/BoardPlay';
+import BoardDisplay from '../BoardDisplay/BoardDisplay';
 
 const Gameplay = props => {
-  const { handleAttack } = props;
-  return <BoardPlay handleAttack={handleAttack} />;
+  const {
+    gameboards,
+    setGameboards,
+    players,
+    currentTurn,
+    setCurrentTurn,
+    currentCoords,
+    setCurrentCoords,
+  } = props;
+
+  const endTurn = () => {
+    if (currentTurn === 0) {
+      setCurrentTurn(1);
+    } else if (currentTurn === 1) {
+      setCurrentTurn(0);
+    }
+  };
+
+  const handleAttack = () => {
+    let attacker;
+    let defender;
+    if (currentTurn === 0) {
+      attacker = 0;
+      defender = 1;
+    } else if (currentTurn === 1) {
+      attacker = 0;
+      defender = 1;
+    }
+    if (currentTurn === 0) {
+      players[attacker].makeAttack(gameboards[defender], currentCoords);
+    } else if (currentTurn === 1) {
+      props.AI.performAIAttack(gameboards[0]);
+    }
+
+    setCurrentCoords([-1, -1]);
+    setTimeout(() => endTurn(), 2000);
+  };
+
+  return (
+    <div>
+      {currentTurn === 0 ? (
+        <BoardPlay
+          gameboards={gameboards}
+          setGameboards={setGameboards}
+          players={players}
+          currentTurn={currentTurn}
+          setCurrentTurn={setCurrentTurn}
+          handleAttack={handleAttack}
+          currentCoords={currentCoords}
+          setCurrentCoords={setCurrentCoords}
+        />
+      ) : (
+        <BoardDisplay
+          gameboards={gameboards}
+          setGameboards={setGameboards}
+          players={players}
+          currentTurn={currentTurn}
+          setCurrentTurn={setCurrentTurn}
+          handleAttack={handleAttack}
+        />
+      )}
+    </div>
+  );
 };
 
 export default Gameplay;

@@ -90,17 +90,19 @@ const Gameboard = (playerID, size) => {
   };
 
   // Handle an attack or a miss
-  const receiveAttack = ([x, y]) => {
+  const receiveAttack = coordsIn => {
+    const x = parseInt(coordsIn[0], 10);
+    const y = parseInt(coordsIn[1], 10);
     const grid = [..._grid];
     const gridContent = grid[x][y];
+
     if (gridContent === 'X' || gridContent === 'H' || gridContent === 'S') {
       // Can't attack tile already attacked.
     } else if (gridContent === 'E') {
       // Empty tile attacked
       grid[x][y] = 'X';
     } else {
-      const shipIndex = parseInt(gridContent.split(''), 10);
-      // console.log(shipIndex);
+      const shipIndex = parseInt(gridContent.split('')[0], 10);
       const shipObj = getShip(shipIndex);
       let attackIndex = -1;
       for (let i = 0; i < shipObj.coords.length; i += 1) {
@@ -122,7 +124,9 @@ const Gameboard = (playerID, size) => {
           grid[x][y] = 'H';
         }
       } else {
-        throw new Error('Ship tile attack index error');
+        throw new Error(
+          `Ship tile attack index error. AttIdx: ${attackIndex} | Coords: x: ${x} | y: ${y}`,
+        );
       }
     }
   };

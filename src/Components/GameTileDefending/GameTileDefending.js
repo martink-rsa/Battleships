@@ -15,6 +15,8 @@ import Ship21 from '../../Assets/Images/Tiles/2_1.png';
 import Ship22 from '../../Assets/Images/Tiles/2_2.png';
 import Ship30 from '../../Assets/Images/Tiles/3_0.png';
 import Ship31 from '../../Assets/Images/Tiles/3_1.png';
+import Hit from '../../Assets/Images/Tiles/hit.png';
+import Miss from '../../Assets/Images/Tiles/miss.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -118,6 +120,18 @@ const useStyles = makeStyles(() => ({
     height: '50px',
     width: '50px',
   },
+  hit: {
+    backgroundImage: `url(${Hit})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  miss: {
+    backgroundImage: `url(${Miss})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
   fog: {
     background: 'rgba(0,0,0,0.8)',
     height: '50px',
@@ -125,7 +139,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const GameTile = props => {
+const GameTileDefending = props => {
   const classes = useStyles();
   const { content, alignment, type } = props;
   const getGameTile = tileType => {
@@ -135,6 +149,12 @@ const GameTile = props => {
       if (tileType === 'E') {
         // return <span className={classes.water} />;
         return <span></span>;
+      } else if (tileType === 'X') {
+        return <span className={classes.miss} />;
+      } else if (tileType === 'H') {
+        return <span className={classes.hit} />;
+      } else if (tileType === 'S') {
+        return <span className={classes.hit} />;
       } else {
         const shipTypeIndex = tileType.split('')[0];
         const shipPartIndex = tileType.split('')[1];
@@ -151,4 +171,4 @@ const GameTile = props => {
   return getGameTile(content);
 };
 
-export default GameTile;
+export default GameTileDefending;

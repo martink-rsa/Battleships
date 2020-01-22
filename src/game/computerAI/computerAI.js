@@ -114,12 +114,12 @@ const ComputerAI = id => {
     let lastRandomAttackCoords = [..._lastRandomAttackCoords];
     const { grid } = gameboard;
     const gridSize = grid.length;
-    let x = getRandomCoords(0, gridSize);
-    let y = getRandomCoords(0, gridSize);
+    let x = getRandomCoords(0, gridSize - 1);
+    let y = getRandomCoords(0, gridSize - 1);
     // Ensure the grid cell's element is not already used
     while (grid[x][y] === 'X' || grid[x][y] === 'H' || grid[x][y] === 'S') {
-      x = getRandomCoords(0, gridSize);
-      y = getRandomCoords(0, gridSize);
+      x = getRandomCoords(0, gridSize - 1);
+      y = getRandomCoords(0, gridSize - 1);
     }
     lastRandomAttackCoords = [x, y];
     _lastRandomAttackCoords = [...lastRandomAttackCoords];

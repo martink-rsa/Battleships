@@ -6,6 +6,7 @@ import Placement from '../Placement/Placement';
 import Intro from '../Intro/Intro';
 import Player from '../../game/player/player';
 import Gameboard from '../../game/gameboard/gameboard';
+import ComputerAI from '../../game/computerAI/computerAI';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,6 +45,10 @@ const GameMain = props => {
   const [gameState, setGameState] = useState('intro');
   const [players, setPlayers] = useState([]);
   const [gameboards, setGameboards] = useState([]);
+  const [computerPlaced, setComputerPlaced] = useState(false);
+  const [currentTurn, setCurrentTurn] = useState(0);
+  const [currentCoords, setCurrentCoords] = useState([]);
+  const [AI, setAI] = useState(ComputerAI(1));
 
   const changeGameState = newGameState => {
     setGameState(newGameState);
@@ -63,7 +68,6 @@ const GameMain = props => {
 
       // Creating boards
       const newGameboard = Gameboard(id, boardSize);
-      // console.log(newGameboard);
       newGameboards.push(newGameboard);
     }
     setPlayers(newPlayers);
@@ -73,10 +77,6 @@ const GameMain = props => {
 
   const startGameplay = () => {
     changeGameState('gameplay');
-  };
-
-  const handleAttack = coords => {
-    console.log(coords);
   };
 
   const renderGameState = currentGameState => {
@@ -97,10 +97,23 @@ const GameMain = props => {
             setGameboards={setGameboards}
             players={players}
             startGameplay={startGameplay}
+            computerPlaced={computerPlaced}
+            setComputerPlaced={setComputerPlaced}
           />
         );
       case 'gameplay':
-        return <Gameplay handleAttack={handleAttack} />;
+        return (
+          <Gameplay
+            gameboards={gameboards}
+            setGameboards={setGameboards}
+            players={players}
+            currentTurn={currentTurn}
+            setCurrentTurn={setCurrentTurn}
+            currentCoords={currentCoords}
+            setCurrentCoords={setCurrentCoords}
+            AI={AI}
+          />
+        );
       default:
         throw new Error('Error: Incorrect game state passed');
     }

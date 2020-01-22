@@ -9,6 +9,7 @@ import Ship0Selector from '../../Assets/Images/selection_0.png';
 import Ship1Selector from '../../Assets/Images/selection_1.png';
 import Ship2Selector from '../../Assets/Images/selection_2.png';
 import Ship3Selector from '../../Assets/Images/selection_3.png';
+import { genRandNum } from '../../game/utility/utility';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,7 +39,12 @@ const BoardPlacement = props => {
   });
   const [alignment, setAlignment] = useState('vertical');
 
-  const { gameboards, setGameboards } = props;
+  const {
+    gameboards,
+    setGameboards,
+    computerPlaced,
+    setComputerPlaced,
+  } = props;
 
   // See which ships are available to select for
   //    ship placement
@@ -98,7 +104,6 @@ const BoardPlacement = props => {
   };
 
   const changeAlignment = newAlignment => {
-    console.log('changeAlignment');
     if (newAlignment === 'vertical') {
       setAlignment('vertical');
     } else {
@@ -106,11 +111,54 @@ const BoardPlacement = props => {
     }
   };
 
-  const createComputerShips = () => {
-    for (let i = 0; i < 4; i += 1) {
-      const newShip = Ship(0, 4, [], false, 'vertical');
+  const generateRandomShip = index => {
+    let x = genRandNum(0, 7);
+    let y = genRandNum(0, 7);
+    let alignment;
+    let size;
+    if (genRandNum(0, 1) === 0) {
+      alignment = 'vertical';
+    } else {
+      alignment = 'horizontal';
+    }
+    if (index === 0) {
+      size = 5;
+    } else if (index === 1) {
+      size = 4;
+    } else if (index === 2) {
+      size = 3;
+    } else if (index === 3) {
+      size = 2;
+    }
+    const ship = Ship(index, size, [], false, alignment);
+    return { ship, x, y };
+  };
+
+  const createComputerShips = gameboard => {
+    if (computerPlaced === false) {
+      setComputerPlaced(true);
+      for (let i = 0; i < 4; i += 1) {
+        let randomShipObj = generateRandomShip(i);
+        let isLegal = gameboard.isLegalPlacement(randomShipObj.ship, [
+          randomShipObj.x,
+          randomShipObj.y,
+        ]);
+        while (!isLegal) {
+          randomShipObj = generateRandomShip(i);
+          isLegal = gameboard.isLegalPlacement(randomShipObj.ship, [
+            randomShipObj.x,
+            randomShipObj.y,
+          ]);
+        }
+        gameboard.placeShip(randomShipObj.ship, [
+          randomShipObj.x,
+          randomShipObj.y,
+        ]);
+      }
     }
   };
+
+  createComputerShips(gameboards[1]);
 
   const handleSelection = id => {
     setPlacementStates(prevState => {

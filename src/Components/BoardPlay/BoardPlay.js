@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import BoardAttack from '../BoardAttack/BoardAttack';
+import MainActionBar from '../MainActionBar/MainActionBar';
 import './BoardPlay.css';
 
 const useStyles = makeStyles(() => ({
@@ -72,50 +74,32 @@ const HiddenButton = withStyles({
 
 const BoardPlay = props => {
   const classes = useStyles();
+  const {
+    gameboards,
+    setGameboards,
+    handleAttack,
+    players,
+    currentCoords,
+    setCurrentCoords,
+  } = props;
 
-  // Generate the gameboard
-  const generateBoard = gameboard => {
-    const board = [];
-    const size = 8;
-    for (let i = 0; i < size; i += 1) {
-      for (let j = 0; j < size; j += 1) {
-        board.push({ x: i, y: j });
-      }
-    }
-    return board;
+  const handleClick = coords => {
+    const x = coords.split(' ')[0];
+    const y = coords.split(' ')[1];
+    setCurrentCoords([x, y]);
   };
 
-  const handleClick = e => {
-    console.log(e.currentTarget.value);
-    props.handleAttack(e.currentTarget.value);
-  };
-
-  const board = generateBoard();
   return (
     <div>
       <Paper>
-        <div className={classes.boardGrid}>
-          {board.map(item => (
-            <div key={`${item.x} ${item.y}`} className={classes.boardCell}>
-              {/* {item[0]}, {item[1]} */}
-              <HiddenButton
-                disableRipple
-                onClick={handleClick}
-                value={`${item.x} ${item.y}`}
-              >
-                {item.x}, {item.y}
-              </HiddenButton>
-            </div>
-          ))}
-        </div>
-        {/* <div className="board-grid">
-          {board.map(item => (
-            <div>
-              {item[0]}, {item[1]}
-            </div>
-          ))}
-        </div> */}
+        <BoardAttack
+          gameboards={gameboards}
+          players={players}
+          boardIndex={1}
+          handleClick={handleClick}
+        />
       </Paper>
+      <MainActionBar buttonText="Attack!" handleClick={handleAttack} />
     </div>
   );
 };

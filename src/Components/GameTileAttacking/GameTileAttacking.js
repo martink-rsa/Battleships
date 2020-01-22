@@ -119,18 +119,18 @@ const useStyles = makeStyles(() => ({
     width: '50px',
   },
   fog: {
-    background: 'rgba(0,0,0,0.8)',
+    background: 'rgba(255,255,255,0.3)',
     height: '50px',
     width: '50px',
   },
 }));
 
-const GameTile = props => {
+const GameTileAttacking = props => {
   const classes = useStyles();
   const { content, alignment, type } = props;
   const getGameTile = tileType => {
     if (type === 'attack') {
-      return <div className={classes.fog}></div>;
+      return <div className={classes.fog}>{content}</div>;
     } else {
       if (tileType === 'E') {
         // return <span className={classes.water} />;
@@ -151,4 +151,4 @@ const GameTile = props => {
   return getGameTile(content);
 };
 
-export default GameTile;
+export default GameTileAttacking;
