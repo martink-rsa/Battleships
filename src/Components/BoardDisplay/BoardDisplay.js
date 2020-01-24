@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Board from '../Board/Board';
 import MainActionBar from '../MainActionBar/MainActionBar';
 import BoardDisplayAttacked from '../BoardDisplayAttacked/BoardDisplayAttacked';
-import ShipSelector from '../ShipSelector/ShipSelector';
-import Ship from '../../game/ship/ship';
-import Ship0Selector from '../../Assets/Images/selection_0.png';
-import Ship1Selector from '../../Assets/Images/selection_1.png';
-import Ship2Selector from '../../Assets/Images/selection_2.png';
-import Ship3Selector from '../../Assets/Images/selection_3.png';
-import { genRandNum } from '../../game/utility/utility';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -34,8 +26,6 @@ const BoardDisplay = props => {
     computerPlaced,
     setComputerPlaced,
   } = props;
-
-
 
   return (
     <div>

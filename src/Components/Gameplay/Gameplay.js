@@ -36,9 +36,13 @@ const Gameplay = props => {
     } else if (currentTurn === 1) {
       props.AI.performAIAttack(gameboards[0]);
     }
-
-    setCurrentCoords([-1, -1]);
-    setTimeout(() => endTurn(), 2000);
+    if (gameboards[defender].allShipsSunk() === true) {
+      props.setWinner(attacker);
+      props.changeGameState('gameover');
+    } else {
+      setCurrentCoords([-1, -1]);
+      setTimeout(() => endTurn(), 2000);
+    }
   };
 
   return (

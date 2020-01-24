@@ -2,8 +2,9 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable no-underscore-dangle */
 
-const Player = (id, playerType, theme, color) => {
+const Player = (id, name, playerType, theme, color) => {
   const _id = id;
+  const _name = name;
   const _playerType = playerType;
   const _theme = theme;
   const _color = color;
@@ -31,6 +32,9 @@ const Player = (id, playerType, theme, color) => {
     // Variables
     get id() {
       return _id;
+    },
+    get name() {
+      return _name;
     },
     get playerType() {
       return _playerType;

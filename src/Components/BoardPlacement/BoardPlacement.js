@@ -182,6 +182,7 @@ const BoardPlacement = props => {
       <MainActionBar buttonText="Play" handleClick={props.startGameplay} />
       <ShipSelector
         changeAlignment={changeAlignment}
+        alignment={alignment}
         shipItems={placementStates.shipItems}
         handleSelection={handleSelection}
         selectedIndex={placementStates.selectedIndex}

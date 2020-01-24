@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import ShipSelectorItem from '../ShipSelectorItem/ShipSelectorItem';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import ShipSelectorItem from '../ShipSelectorItem/ShipSelectorItem';
+// import BackgroundI1 from './bg-i1.png';
+import BackgroundI2 from '../../Assets/Images/bg-i2.png';
+import BtnS3Selected from '../../Assets/Images/btn-style-3-selected.png';
+import BtnS3Disabled from '../../Assets/Images/btn-style-3-disabled.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,9 +22,13 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'rgba(255,255,255,0.8)',
   },
   wrapper: {
+    // background: 'red',
     display: 'flex',
     justifyContent: 'center',
-    height: '170px',
+    height: '195px',
+    backgroundImage: `url(${BackgroundI2})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center top',
   },
   container: {
     height: '100%',
@@ -32,31 +40,54 @@ const useStyles = makeStyles(() => ({
   },
   shipsContainer: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '162px',
+    height: '52px',
+    // backgroundImage: `url(${BtnNormal})`,
+    backgroundImage: `url(${BtnS3Selected})`,
+    backgroundPosition: 'center top',
+  },
+  buttonContainerDisabled: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '162px',
+    height: '52px',
+    // backgroundImage: `url(${BtnNormal})`,
+    backgroundImage: `url(${BtnS3Disabled})`,
+    backgroundPosition: 'center top',
   },
 }));
 
 const AlignmentButton = withStyles({
   root: {
-    margin: '10px 8px',
+    margin: '0px',
+    padding: '0px',
     minWidth: 'initial',
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
-    padding: '6px 12px',
-    border: '1px solid',
+    // padding: '6px 12px',
+    // border: '1px solid',
     lineHeight: 1.5,
-    backgroundColor: '#007bff',
-    borderColor: '#007bff',
+    width: '162px',
+    height: '52px',
+    borderRadius: '0px',
     '&:hover': {
-      backgroundColor: '#0069d9',
-      borderColor: '#0062cc',
       boxShadow: 'none',
+      background: 'rgb(0,105,217)',
+      background:
+        'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0.2278820375335121) 18%, rgba(65,192,219,0) 31%)',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#0062cc',
-      borderColor: '#005cbf',
     },
     '&:focus': {
       // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
@@ -67,7 +98,13 @@ const AlignmentButton = withStyles({
 const ShipSelector = props => {
   const classes = useStyles();
 
-  const { shipItems, handleSelection, selectedIndex, changeAlignment } = props;
+  const {
+    shipItems,
+    handleSelection,
+    selectedIndex,
+    changeAlignment,
+    alignment,
+  } = props;
   // const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -75,10 +112,26 @@ const ShipSelector = props => {
       <div className={classes.container}>
         <div className={classes.title}>
           <AlignmentButton onClick={() => changeAlignment('vertical')}>
-            <SwapVertIcon />
+            {alignment === 'vertical' ? (
+              <div className={classes.buttonContainer}>
+                <SwapVertIcon />
+              </div>
+            ) : (
+              <div className={classes.buttonContainerDisabled}>
+                <SwapVertIcon />
+              </div>
+            )}
           </AlignmentButton>
           <AlignmentButton onClick={() => changeAlignment('horizontal')}>
-            <SwapHorizIcon />
+            {alignment === 'horizontal' ? (
+              <div className={classes.buttonContainer}>
+                <SwapHorizIcon />
+              </div>
+            ) : (
+              <div className={classes.buttonContainerDisabled}>
+                <SwapHorizIcon />
+              </div>
+            )}
           </AlignmentButton>
         </div>
         <div className={classes.shipsContainer}>

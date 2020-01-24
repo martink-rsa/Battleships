@@ -125,7 +125,7 @@ const Gameboard = (playerID, size) => {
         }
       } else {
         throw new Error(
-          `Ship tile attack index error. AttIdx: ${attackIndex} | Coords: x: ${x} | y: ${y}`,
+          `Ship tile attack index error. attackIndex: ${attackIndex} | Coords: x: ${x} | y: ${y}`,
         );
       }
     }
@@ -135,7 +135,7 @@ const Gameboard = (playerID, size) => {
     const ships = [..._ships];
     for (let i = 0; i < ships.length; i += 1) {
       const shipObj = getShip(i);
-      if (shipObj.ship.isSunken === false) {
+      if (shipObj.ship.isSunk() === false) {
         return false;
       }
     }

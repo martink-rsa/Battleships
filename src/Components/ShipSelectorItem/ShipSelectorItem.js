@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import BtnNormal from '../../Assets/Images/btn-style-2-normal3.png';
+import BtnSelected from '../../Assets/Images/btn-style-2-selected.png';
+import BtnDisabled from '../../Assets/Images/btn-style-2-disabled.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,45 +18,43 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    background: '#e0e0e0',
-    width: '90px',
-    border: '4px solid black',
-    borderRadius: '3px',
+    // background: '#e0e0e0',
+    width: '79px',
+    height: '103px',
+    // border: '2px solid rgb(36,36,41)',
+    // borderRadius: '3px',
+    margin: '0 2px',
+    backgroundColor: 'transparent',
   },
   shipContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
-    height: '100%',
+    height: '103px',
     width: '100%',
+    backgroundImage: `url(${BtnNormal})`,
   },
   shipContainerDisabled: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
-    height: '100%',
+    height: '103px',
     width: '100%',
-    opacity: '0.7',
+    // opacity: '0.7',
+    backgroundImage: `url(${BtnDisabled})`,
   },
   shipContainerSelected: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
-    height: '100%',
+    height: '103px',
     width: '100%',
-    background: 'red',
-  },
-  block: {
-    height: '15px',
-    width: '15px',
-    boxSizing: 'border-box',
-    borderRadius: '3px',
-    // background: 'black',
-    margin: '5px 2px 2px 5px',
-    border: '3px solid black',
+
+    // background: 'red',
+    backgroundImage: `url(${BtnSelected})`,
   },
 }));
 
@@ -63,7 +64,7 @@ const SelectionButton = withStyles({
     justifyContent: 'center',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    backgroundColor: '#e0e0e0',
+    // backgroundColor: '#e0e0e0',
     boxShadow: 'none',
     textTransform: 'none',
     padding: '0px',
@@ -72,13 +73,19 @@ const SelectionButton = withStyles({
     height: '100%',
     width: '100%',
     borderRadius: '0px',
+    backgroundColor: 'transparent',
+
     '&:hover': {
-      backgroundColor: '#0069d9',
+      // height: '80%',
+      // width: '80%',
+      background: 'rgb(0,105,217)',
+      background:
+        'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0) 70%)',
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#0062cc',
+      // backgroundColor: '#0062cc',
       borderColor: '#005cbf',
     },
     '&:focus': {
@@ -87,6 +94,14 @@ const SelectionButton = withStyles({
   },
   label: {
     height: '100%',
+    // backgroundColor: 'red',
+    backgroundColor: 'transparent',
+  },
+  disabled: {
+    backgroundColor: 'transparent',
+  },
+  contained: {
+    backgroundColor: 'transparent',
   },
 })(Button);
 
@@ -104,7 +119,6 @@ const ShipSelectorItem = props => {
         >
           <div className={classes.shipContainerSelected}>
             <img src={ship} alt={altTag} />
-            <div className={classes.block} />
             <div>x{size}</div>
           </div>
         </SelectionButton>
@@ -115,7 +129,6 @@ const ShipSelectorItem = props => {
         <SelectionButton variant="contained" disabled>
           <div className={classes.shipContainerDisabled}>
             <img src={ship} alt={altTag} />
-            <div className={classes.block} />
             <div>x{size}</div>
           </div>
         </SelectionButton>
@@ -125,7 +138,6 @@ const ShipSelectorItem = props => {
       <SelectionButton variant="contained" onClick={() => handleSelection(id)}>
         <div className={classes.shipContainer}>
           <img src={ship} alt={altTag} />
-          <div className={classes.block} />
           <div>x{size}</div>
         </div>
       </SelectionButton>

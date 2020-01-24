@@ -2,17 +2,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GameMain from '../GameMain/GameMain';
-import BackgroundT1 from './bg-t1.png';
+import BackgroundI1 from '../../Assets/Images/bg-i1.png';
 
 const useStyles = makeStyles(() => ({
   root: {},
   container: {
-    paddingTop: '86px',
+    paddingTop: '61px',
     height: 'auto',
   },
   bg: {
     height: 'auto',
-    backgroundImage: `url(${BackgroundT1})`,
+    backgroundImage: `url(${BackgroundI1})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center top',
   },

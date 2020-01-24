@@ -4,6 +4,7 @@ import Gameplay from '../Gameplay/Gameplay';
 import PlayerSelection from '../PlayerSelection/PlayerSelection';
 import Placement from '../Placement/Placement';
 import Intro from '../Intro/Intro';
+import GameOver from '../GameOver/GameOver';
 import Player from '../../game/player/player';
 import Gameboard from '../../game/gameboard/gameboard';
 import ComputerAI from '../../game/computerAI/computerAI';
@@ -36,7 +37,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     minHeight: '400px',
     width: '400px',
-    background: 'rgba(255,255,255,0.1)',
+    // background: 'rgba(255,255,255,0.1)',
   },
 }));
 
@@ -49,6 +50,7 @@ const GameMain = props => {
   const [currentTurn, setCurrentTurn] = useState(0);
   const [currentCoords, setCurrentCoords] = useState([]);
   const [AI, setAI] = useState(ComputerAI(1));
+  const [winner, setWinner] = useState(1);
 
   const changeGameState = newGameState => {
     setGameState(newGameState);
@@ -62,10 +64,9 @@ const GameMain = props => {
       // Creating players
       const currentPlayer = playersIn[i];
       const id = i;
-      const { type, theme, color } = currentPlayer;
-      const newPlayer = Player(id, type, theme, color);
+      const { name, type, theme, color } = currentPlayer;
+      const newPlayer = Player(id, name, type, theme, color);
       newPlayers.push(newPlayer);
-
       // Creating boards
       const newGameboard = Gameboard(id, boardSize);
       newGameboards.push(newGameboard);
@@ -73,6 +74,10 @@ const GameMain = props => {
     setPlayers(newPlayers);
     setGameboards(newGameboards);
     changeGameState('placement');
+  };
+
+  const resetGame = () => {
+    changeGameState('playerSelection');
   };
 
   const startGameplay = () => {
@@ -108,10 +113,20 @@ const GameMain = props => {
             setGameboards={setGameboards}
             players={players}
             currentTurn={currentTurn}
+            changeGameState={changeGameState}
             setCurrentTurn={setCurrentTurn}
             currentCoords={currentCoords}
             setCurrentCoords={setCurrentCoords}
             AI={AI}
+          />
+        );
+      case 'gameover':
+        return (
+          <GameOver
+            changeGameState={changeGameState}
+            players={players}
+            winner={winner}
+            resetGame={resetGame}
           />
         );
       default:
