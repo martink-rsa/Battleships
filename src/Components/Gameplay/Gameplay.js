@@ -1,6 +1,6 @@
 import React from 'react';
-import BoardPlay from '../BoardPlay/BoardPlay';
-import BoardDisplay from '../BoardDisplay/BoardDisplay';
+import AttackMain from '../AttackMain/AttackMain';
+import DefendMain from '../DefendMain/DefendMain';
 
 const Gameplay = props => {
   const {
@@ -48,7 +48,7 @@ const Gameplay = props => {
   return (
     <div>
       {currentTurn === 0 ? (
-        <BoardPlay
+        <AttackMain
           gameboards={gameboards}
           setGameboards={setGameboards}
           players={players}
@@ -59,7 +59,7 @@ const Gameplay = props => {
           setCurrentCoords={setCurrentCoords}
         />
       ) : (
-        <BoardDisplay
+        <DefendMain
           gameboards={gameboards}
           setGameboards={setGameboards}
           players={players}

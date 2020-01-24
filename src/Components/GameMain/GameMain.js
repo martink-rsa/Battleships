@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-begin',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     height: 'auto',
     width: '100%',

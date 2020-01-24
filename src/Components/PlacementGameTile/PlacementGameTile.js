@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Water from '../../Assets/Images/Tiles/Water2.png';
 import Ship00 from '../../Assets/Images/Tiles/0_0.png';
 import Ship01 from '../../Assets/Images/Tiles/0_1.png';
 import Ship02 from '../../Assets/Images/Tiles/0_2.png';
@@ -15,9 +14,6 @@ import Ship21 from '../../Assets/Images/Tiles/2_1.png';
 import Ship22 from '../../Assets/Images/Tiles/2_2.png';
 import Ship30 from '../../Assets/Images/Tiles/3_0.png';
 import Ship31 from '../../Assets/Images/Tiles/3_1.png';
-import Hit from '../../Assets/Images/Tiles/hit.png';
-import Miss from '../../Assets/Images/Tiles/miss.png';
-import Fog from '../../Assets/Images/Tiles/fog.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -113,47 +109,23 @@ const useStyles = makeStyles(() => ({
     height: '50px',
     width: '50px',
   },
-  hit: {
-    backgroundImage: `url(${Hit})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
-  },
-  miss: {
-    backgroundImage: `url(${Miss})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
-  },
-  fog: {
-    backgroundImage: `url(${Fog})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
-    '&:hover': {
-      // background: 'pink',
-      boxShadow: 'inset 0px 0px 0px 2px rgba(31,138,252,0.8)',
-    },
-  },
 }));
 
-const GameTileAttacking = props => {
+const PlacementGameTile = props => {
   const classes = useStyles();
-  const { content, alignment, type, visible } = props;
-
+  const { content, alignment, type } = props;
   const getGameTile = tileType => {
-    if (visible) {
-      if (tileType === 'H' || tileType === 'S') {
-        return <div className={classes.hit}></div>;
-      } else if (tileType === 'X') {
-        return <div className={classes.miss}></div>;
-      }
+    const shipTypeIndex = tileType.split('')[0];
+    const shipPartIndex = tileType.split('')[1];
+    const class1 = classes[`ship${shipTypeIndex}${shipPartIndex}`];
+    if (alignment === 'horizontal') {
+      return <span className={`${class1} ${classes.rotate}`} />;
     } else {
-      return <div className={classes.fog}></div>;
+      return <span className={`${class1}`} />;
     }
   };
 
   return getGameTile(content);
 };
 
-export default GameTileAttacking;
+export default PlacementGameTile;

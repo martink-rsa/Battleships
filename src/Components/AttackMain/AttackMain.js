@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import BoardAttack from '../BoardAttack/BoardAttack';
+import AttackBoard from '../AttackBoard/AttackBoard';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const useStyles = makeStyles(() => ({
@@ -71,7 +71,7 @@ const HiddenButton = withStyles({
   },
 })(Button);
 
-const BoardPlay = props => {
+const AttackMain = props => {
   const classes = useStyles();
   const {
     gameboards,
@@ -91,7 +91,7 @@ const BoardPlay = props => {
   return (
     <div>
       <Paper>
-        <BoardAttack
+        <AttackBoard
           gameboards={gameboards}
           players={players}
           boardIndex={1}
@@ -103,4 +103,4 @@ const BoardPlay = props => {
   );
 };
 
-export default BoardPlay;
+export default AttackMain;

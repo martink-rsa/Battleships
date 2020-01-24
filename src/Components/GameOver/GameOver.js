@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import BoardAttack from '../BoardAttack/BoardAttack';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const useStyles = makeStyles(() => ({

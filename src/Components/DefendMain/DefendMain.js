@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import MainActionBar from '../MainActionBar/MainActionBar';
-import BoardDisplayAttacked from '../BoardDisplayAttacked/BoardDisplayAttacked';
+import DefendBoard from '../DefendBoard/DefendBoard';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BoardDisplay = props => {
+const DefendMain = props => {
   const classes = useStyles();
   const {
     gameboards,
@@ -30,7 +30,7 @@ const BoardDisplay = props => {
   return (
     <div>
       <Paper>
-        <BoardDisplayAttacked
+        <DefendBoard
           type="display"
           // grid={gameboards[0].grid}
           gameboards={gameboards}
@@ -47,4 +47,4 @@ const BoardDisplay = props => {
   );
 };
 
-export default BoardDisplay;
+export default DefendMain;

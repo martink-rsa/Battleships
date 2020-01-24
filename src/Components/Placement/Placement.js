@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardPlacement from '../BoardPlacement/BoardPlacement';
+import PlacementMain from '../PlacementMain/PlacementMain';
 import ShipSelector from '../ShipSelector/ShipSelector';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
@@ -15,7 +15,7 @@ const Placement = props => {
 
   return (
     <div>
-      <BoardPlacement
+      <PlacementMain
         gameboards={gameboards}
         setGameboards={setGameboards}
         players={players}

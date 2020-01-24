@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import GameTile from '../GameTile/GameTile';
+import PlacementGameTile from '../PlacementGameTile/PlacementGameTile';
 import Bg1 from '../../Assets/Images/bg1.jpg';
 // import Bg2 from '../../Assets/Images/bg2.jpg';
 
@@ -52,8 +52,10 @@ const HiddenButton = withStyles({
     width: '100%',
     transition: 'none',
     '&:hover': {
-      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
+      // boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
+      background: 'transparent',
     },
+    /*
     '&:active': {
       boxSizing: 'border-box',
       boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
@@ -62,11 +64,11 @@ const HiddenButton = withStyles({
     },
     '&:focus': {
       // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
+    }, */
   },
 })(Button);
 
-const Board = props => {
+const PlacementBoard = props => {
   const classes = useStyles();
 
   // Generate the gameboard
@@ -106,7 +108,10 @@ const Board = props => {
                 onClick={props.handleBoardClick}
                 value={item.key}
               >
-                <GameTile content={item.content} alignment={item.alignment} />
+                <PlacementGameTile
+                  content={item.content}
+                  alignment={item.alignment}
+                />
               </HiddenButton>
             </div>
           ))}
@@ -116,4 +121,4 @@ const Board = props => {
   );
 };
 
-export default Board;
+export default PlacementBoard;

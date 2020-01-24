@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Board from '../Board/Board';
+import PlacementBoard from '../PlacementBoard/PlacementBoard';
 import MainActionBar from '../MainActionBar/MainActionBar';
 import ShipSelector from '../ShipSelector/ShipSelector';
 import Ship from '../../game/ship/ship';
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BoardPlacement = props => {
+const PlacementMain = props => {
   const classes = useStyles();
   const [placementStates, setPlacementStates] = useState({
     isStillPlacing: true,
@@ -171,7 +171,7 @@ const BoardPlacement = props => {
   return (
     <div>
       <Paper>
-        <Board
+        <PlacementBoard
           type="placement"
           // grid={gameboards[0].grid}
           gameboards={gameboards}
@@ -195,4 +195,4 @@ const BoardPlacement = props => {
   );
 };
 
-export default BoardPlacement;
+export default PlacementMain;
