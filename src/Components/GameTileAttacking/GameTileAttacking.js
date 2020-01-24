@@ -15,6 +15,9 @@ import Ship21 from '../../Assets/Images/Tiles/2_1.png';
 import Ship22 from '../../Assets/Images/Tiles/2_2.png';
 import Ship30 from '../../Assets/Images/Tiles/3_0.png';
 import Ship31 from '../../Assets/Images/Tiles/3_1.png';
+import Hit from '../../Assets/Images/Tiles/hit.png';
+import Miss from '../../Assets/Images/Tiles/miss.png';
+import Fog from '../../Assets/Images/Tiles/fog.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,14 +28,6 @@ const useStyles = makeStyles(() => ({
   },
   rotate: {
     transform: 'rotate(-90deg)',
-  },
-  water: {
-    backgroundImage: `url(${Water})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
-    margin: 0,
-    padding: 0,
   },
   ship00: {
     backgroundImage: `url(${Ship00})`,
@@ -118,33 +113,43 @@ const useStyles = makeStyles(() => ({
     height: '50px',
     width: '50px',
   },
-  fog: {
-    background: 'rgba(255,255,255,0.3)',
+  hit: {
+    backgroundImage: `url(${Hit})`,
+    backgroundRepeat: 'no-repeat',
     height: '50px',
     width: '50px',
+  },
+  miss: {
+    backgroundImage: `url(${Miss})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
+  fog: {
+    backgroundImage: `url(${Fog})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+    '&:hover': {
+      // background: 'pink',
+      boxShadow: 'inset 0px 0px 0px 2px rgba(31,138,252,0.8)',
+    },
   },
 }));
 
 const GameTileAttacking = props => {
   const classes = useStyles();
-  const { content, alignment, type } = props;
+  const { content, alignment, type, visible } = props;
+
   const getGameTile = tileType => {
-    if (type === 'attack') {
-      return <div className={classes.fog}>{content}</div>;
-    } else {
-      if (tileType === 'E') {
-        // return <span className={classes.water} />;
-        return <span></span>;
-      } else {
-        const shipTypeIndex = tileType.split('')[0];
-        const shipPartIndex = tileType.split('')[1];
-        const class1 = classes[`ship${shipTypeIndex}${shipPartIndex}`];
-        if (alignment === 'horizontal') {
-          return <span className={`${class1} ${classes.rotate}`} />;
-        } else {
-          return <span className={`${class1}`} />;
-        }
+    if (visible) {
+      if (tileType === 'H' || tileType === 'S') {
+        return <div className={classes.hit}></div>;
+      } else if (tileType === 'X') {
+        return <div className={classes.miss}></div>;
       }
+    } else {
+      return <div className={classes.fog}></div>;
     }
   };
 

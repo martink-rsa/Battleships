@@ -143,27 +143,23 @@ const GameTileDefending = props => {
   const classes = useStyles();
   const { content, alignment, type } = props;
   const getGameTile = tileType => {
-    if (type === 'attack') {
-      return <div className={classes.fog}></div>;
+    if (tileType === 'E') {
+      // return <span className={classes.water} />;
+      return <span></span>;
+    } else if (tileType === 'X') {
+      return <span className={classes.miss} />;
+    } else if (tileType === 'H') {
+      return <span className={classes.hit} />;
+    } else if (tileType === 'S') {
+      return <span className={classes.hit} />;
     } else {
-      if (tileType === 'E') {
-        // return <span className={classes.water} />;
-        return <span></span>;
-      } else if (tileType === 'X') {
-        return <span className={classes.miss} />;
-      } else if (tileType === 'H') {
-        return <span className={classes.hit} />;
-      } else if (tileType === 'S') {
-        return <span className={classes.hit} />;
+      const shipTypeIndex = tileType.split('')[0];
+      const shipPartIndex = tileType.split('')[1];
+      const class1 = classes[`ship${shipTypeIndex}${shipPartIndex}`];
+      if (alignment === 'horizontal') {
+        return <span className={`${class1} ${classes.rotate}`} />;
       } else {
-        const shipTypeIndex = tileType.split('')[0];
-        const shipPartIndex = tileType.split('')[1];
-        const class1 = classes[`ship${shipTypeIndex}${shipPartIndex}`];
-        if (alignment === 'horizontal') {
-          return <span className={`${class1} ${classes.rotate}`} />;
-        } else {
-          return <span className={`${class1}`} />;
-        }
+        return <span className={`${class1}`} />;
       }
     }
   };

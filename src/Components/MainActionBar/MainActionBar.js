@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import BtnNormal from '../../Assets/Images/btn-style-1-normal.png';
 import BtnDisabled from '../../Assets/Images/btn-style-1-disabled.png';
@@ -76,16 +77,28 @@ const MainButton = withStyles({
 
 const MainActionBar = props => {
   const classes = useStyles();
-  const { buttonText, handleClick } = props;
+  const { buttonText, handleClick, isReady } = props;
   return (
-    <div className={classes.container}>
-      <MainButton
-        variant="contained"
-        // onClick={() => handleSelection(id)}
-      >
-        <div className={classes.btnContainer}>BTN</div>
-      </MainButton>
-    </div>
+    <Box className={classes.container}>
+      {isReady ? (
+        <MainButton
+          variant="contained"
+          // onClick={() => handleSelection(id)}
+          onClick={handleClick}
+        >
+          <div className={classes.btnContainer}>{buttonText}</div>
+        </MainButton>
+      ) : (
+        <MainButton
+          variant="contained"
+          // onClick={() => handleSelection(id)}
+          onClick={handleClick}
+          disabled
+        >
+          <div className={classes.btnContainerDisabled}>{buttonText}</div>
+        </MainButton>
+      )}
+    </Box>
   );
 };
 

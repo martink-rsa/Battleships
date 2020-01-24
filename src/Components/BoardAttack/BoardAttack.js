@@ -83,23 +83,15 @@ const BoardAttack = props => {
         newBoard.push({
           key: `${i} ${j}`,
           content: grid[i][j],
-          visible: true,
+          visible: false,
         });
       }
     }
     for (let i = 0; i < players[0].attacksMade.length; i += 1) {
       const x = players[0].attacksMade[i][0];
       const y = players[0].attacksMade[i][1];
-      /* console.log(players[0].attacksMade[i]);
-
-      console.log({ x });
-      console.log({ y });
-      console.log(parseInt(x) * 8 + parseInt(y)); */
-
-      // p.x = index / 3;
-      // p.y = index % 3;
-
-      // newBoard
+      const attackIndex = parseInt(x) * 8 + parseInt(y);
+      newBoard[attackIndex].visible = true;
     }
     return newBoard;
   };
@@ -118,6 +110,7 @@ const BoardAttack = props => {
                 <GameTileAttacking
                   content={item.content}
                   alignment={item.alignment}
+                  visible={item.visible}
                   type="attack"
                 />
               </HiddenButton>

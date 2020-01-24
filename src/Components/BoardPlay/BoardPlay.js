@@ -98,7 +98,7 @@ const BoardPlay = props => {
           handleClick={handleClick}
         />
       </Paper>
-      <MainActionBar buttonText="Attack!" handleClick={handleAttack} />
+      <MainActionBar buttonText="Attack" handleClick={handleAttack} isReady />
     </div>
   );
 };

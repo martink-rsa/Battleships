@@ -38,7 +38,11 @@ const BoardDisplay = props => {
           // handleBoardClick={handleBoardClick}
         />
       </Paper>
-      <MainActionBar buttonText="Play" handleClick={props.handleAttack} />
+      <MainActionBar
+        buttonText="Play"
+        handleClick={props.handleAttack}
+        isReady
+      />
     </div>
   );
 };
