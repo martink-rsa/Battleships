@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import AttackGameTile from '../AttackGameTile/AttackGameTile';
 import Bg1 from '../../Assets/Images/bg1.jpg';
 // import Bg2 from '../../Assets/Images/bg2.jpg';
@@ -74,21 +75,25 @@ const HiddenButton = withStyles({
 const AttackBoard = props => {
   const classes = useStyles();
 
-  // CONTINUE HERE:
-  //    NEED TO FIND A WAY TO ADD FOG OF WAR
-
-  // Generate the gameboard
   const generateBoard = gameboard => {
-    const { boardIndex, players } = props;
+    const { boardIndex, players, currentCoords } = props;
     const grid = gameboard.grid;
     const newBoard = [];
     const size = 8;
     for (let i = 0; i < size; i += 1) {
       for (let j = 0; j < size; j += 1) {
+        let selected = false;
+        if (
+          parseInt(currentCoords[0]) === i &&
+          parseInt(currentCoords[1]) === j
+        ) {
+          selected = true;
+        }
         newBoard.push({
           key: `${i} ${j}`,
           content: grid[i][j],
           visible: false,
+          selected,
         });
       }
     }
@@ -117,10 +122,12 @@ const AttackBoard = props => {
                   alignment={item.alignment}
                   visible={item.visible}
                   type="attack"
+                  selected={item.selected}
                 />
               </HiddenButton>
             </div>
           ))}
+          <ScreenOverlay />
         </div>
       </Paper>
     </div>

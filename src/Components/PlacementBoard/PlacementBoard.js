@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
+
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import PlacementGameTile from '../PlacementGameTile/PlacementGameTile';
@@ -51,6 +53,7 @@ const HiddenButton = withStyles({
     height: '100%',
     width: '100%',
     transition: 'none',
+    outline: '1px solid rgba(0,0,0,0.2)',
     '&:hover': {
       // boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
       background: 'transparent',
@@ -70,6 +73,7 @@ const HiddenButton = withStyles({
 
 const PlacementBoard = props => {
   const classes = useStyles();
+  const [hoverCoords, setHoverCoords] = useState([]);
 
   // Generate the gameboard
   const generateBoard = gameboard => {
@@ -111,10 +115,12 @@ const PlacementBoard = props => {
                 <PlacementGameTile
                   content={item.content}
                   alignment={item.alignment}
+                  hoverCoords={hoverCoords}
                 />
               </HiddenButton>
             </div>
           ))}
+          <ScreenOverlay />
         </div>
       </Paper>
     </div>

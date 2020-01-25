@@ -11,45 +11,56 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
   },
+  base: {
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+    outline: '1px solid rgba(0,0,0,0.2)',
+  },
+  selected: {
+    background: 'rgba(65, 192, 219, .8)',
+    boxShadow: 'inset 0px 0px 0px 2px rgba(56,143,166,1)',
+    borderRadius: '5px',
+    // borderRadius: '5px',
+    // outline: '1px solid rgba(125, 193, 223, 1)',
+  },
   rotate: {
     transform: 'rotate(-90deg)',
   },
   hit: {
     backgroundImage: `url(${Hit})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
   },
   miss: {
     backgroundImage: `url(${Miss})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
   },
   fog: {
     backgroundImage: `url(${Fog})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
     '&:hover': {
-      boxShadow: 'inset 0px 0px 0px 2px rgba(31,138,252,0.8)',
+      boxShadow: 'inset 0px 0px 0px 2px rgba(65, 192, 219, .5)',
+      borderRadius: '5px',
     },
   },
 }));
 
 const AttackGameTile = props => {
   const classes = useStyles();
-  const { content, alignment, type, visible } = props;
+  const { content, alignment, type, visible, selected } = props;
 
+  let preparedClasses;
+  if (selected) {
+    preparedClasses = `${classes.base} ${classes.selected}`;
+  } else {
+    preparedClasses = `${classes.base}`;
+  }
   const getGameTile = tileType => {
     if (visible) {
       if (tileType === 'H' || tileType === 'S') {
-        return <div className={classes.hit}></div>;
+        return <div className={`${classes.base} ${classes.hit}`}></div>;
       } else if (tileType === 'X') {
-        return <div className={classes.miss}></div>;
+        return <div className={`${classes.base} ${classes.miss}`}></div>;
       }
     } else {
-      return <div className={classes.fog}></div>;
+      return <div className={`${preparedClasses} ${classes.fog}`}></div>;
     }
   };
 

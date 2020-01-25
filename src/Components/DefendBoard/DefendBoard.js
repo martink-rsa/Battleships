@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import DefendGameTile from '../DefendGameTile/DefendGameTile';
 import Bg1 from '../../Assets/Images/bg1.jpg';
 // import Bg2 from '../../Assets/Images/bg2.jpg';
@@ -122,6 +123,7 @@ const DefendBoard = props => {
               </HiddenButton>
             </div>
           ))}
+          <ScreenOverlay />
         </div>
       </Paper>
     </div>
