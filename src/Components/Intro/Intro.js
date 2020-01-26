@@ -27,9 +27,9 @@ const useStyles = makeStyles(() => ({
 
 const Intro = props => {
   const classes = useStyles();
-
+  const { changeGameState, audioClick1 } = props;
   const nextGameState = () => {
-    props.changeGameState('playerSelection');
+    changeGameState('playerSelection');
   };
 
   return (
@@ -37,7 +37,12 @@ const Intro = props => {
       <Paper>
         <div className={classes.boardGrid}>Battleships!</div>
       </Paper>
-      <MainActionBar buttonText="Start" handleClick={nextGameState} isReady />
+      <MainActionBar
+        buttonText="Start"
+        handleClick={nextGameState}
+        isReady
+        audioClick1={audioClick1}
+      />
     </div>
   );
 };

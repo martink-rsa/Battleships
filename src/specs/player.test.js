@@ -4,35 +4,39 @@ import Player from '../game/player/player';
 // Player: Player Object Creation
 describe('Player: Human player is created', () => {
   test('Basic Player 1 Human Player created', () => {
-    const newPlayer1 = Player(0, 'human', 'default', 'blue');
+    const newPlayer1 = Player(0, 'Henry Kwan', 'human', 'default', 'blue');
     expect(newPlayer1).toMatchObject({
       id: 0,
+      name: 'Henry Kwan',
       playerType: 'human',
       theme: 'default',
       color: 'blue',
     });
   });
   test('Basic Player 1 Computer Player created', () => {
-    const newPlayer1 = Player(0, 'computer', 'default', 'blue');
+    const newPlayer1 = Player(0, 'Lily Reed', 'computer', 'default', 'blue');
     expect(newPlayer1).toMatchObject({
       id: 0,
+      name: 'Lily Reed',
       playerType: 'computer',
       theme: 'default',
       color: 'blue',
     });
   });
   test('Basic Player 1 Human and Player 2 Computer created', () => {
-    const newPlayer1 = Player(0, 'human', 'default', 'blue');
-    const newPlayer2 = Player(1, 'computer', 'default', 'red');
+    const newPlayer1 = Player(0, 'Kazaaakpleth', 'human', 'default', 'blue');
+    const newPlayer2 = Player(1, 'Archimedes', 'computer', 'default', 'red');
 
     expect(newPlayer1).toMatchObject({
       id: 0,
+      name: 'Kazaaakpleth',
       playerType: 'human',
       theme: 'default',
       color: 'blue',
     });
     expect(newPlayer2).toMatchObject({
       id: 1,
+      name: 'Archimedes',
       playerType: 'computer',
       theme: 'default',
       color: 'red',

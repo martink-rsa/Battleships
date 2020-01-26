@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -29,16 +29,13 @@ const useStyles = makeStyles(() => ({
   },
   boardCell: {
     position: 'relative',
-    // background: 'rgb(34, 84, 141)',
     width: 'auto',
     height: 'auto',
-    // outline: '1px solid rgba(0,0,0,0.4)',
   },
   cellButton: {
     position: 'absolute',
     height: '100%',
     width: '100%',
-    // background: 'black',
     background: 'transparent',
   },
 }));
@@ -56,24 +53,12 @@ const HiddenButton = withStyles({
     '&:hover': {
       background: 'transparent',
     },
-
-    /*     '&:hover': {
-      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
-    },
-    '&:active': {
-      boxSizing: 'border-box',
-      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      borderColor: '#005cbf',
-    },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    }, */
   },
 })(Button);
 
 const AttackBoard = props => {
   const classes = useStyles();
+  const { setPlayerAttackMade } = props;
 
   const generateBoard = gameboard => {
     const { boardIndex, players, currentCoords } = props;

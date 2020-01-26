@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AttackMain from '../AttackMain/AttackMain';
 import DefendMain from '../DefendMain/DefendMain';
 
 const Gameplay = props => {
+  const [playerAttackReady, setPlayerAttackReady] = useState(false);
+  const [playerAttackMade, setPlayerAttackMade] = useState(false);
+  const [computerAttackMade, setComputerAttackMade] = useState(false);
+
   const {
+    setWinner,
+    changeGameState,
     gameboards,
     setGameboards,
     players,
@@ -11,6 +17,8 @@ const Gameplay = props => {
     setCurrentTurn,
     currentCoords,
     setCurrentCoords,
+    audioClick1,
+    audioClick2,
   } = props;
 
   const endTurn = () => {
@@ -32,13 +40,18 @@ const Gameplay = props => {
       defender = 1;
     }
     if (currentTurn === 0) {
+      setPlayerAttackMade(true);
+      setPlayerAttackReady(false);
+      setComputerAttackMade(false);
       players[attacker].makeAttack(gameboards[defender], currentCoords);
     } else if (currentTurn === 1) {
+      setPlayerAttackMade(false);
+      setComputerAttackMade(true);
       props.AI.performAIAttack(gameboards[0]);
     }
     if (gameboards[defender].allShipsSunk() === true) {
-      props.setWinner(attacker);
-      props.changeGameState('gameover');
+      setWinner(attacker);
+      changeGameState('gameover');
     } else {
       setCurrentCoords([-1, -1]);
       setTimeout(() => endTurn(), 2000);
@@ -57,6 +70,12 @@ const Gameplay = props => {
           handleAttack={handleAttack}
           currentCoords={currentCoords}
           setCurrentCoords={setCurrentCoords}
+          playerAttackReady={playerAttackReady}
+          setPlayerAttackReady={setPlayerAttackReady}
+          playerAttackMade={playerAttackMade}
+          setPlayerAttackMade={setPlayerAttackMade}
+          audioClick1={audioClick1}
+          audioClick2={audioClick2}
         />
       ) : (
         <DefendMain
@@ -66,6 +85,9 @@ const Gameplay = props => {
           currentTurn={currentTurn}
           setCurrentTurn={setCurrentTurn}
           handleAttack={handleAttack}
+          computerAttackMade={computerAttackMade}
+          setComputerAttackMade={computerAttackMade}
+          audioClick1={audioClick1}
         />
       )}
     </div>

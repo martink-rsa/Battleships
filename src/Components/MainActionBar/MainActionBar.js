@@ -77,24 +77,20 @@ const MainButton = withStyles({
 
 const MainActionBar = props => {
   const classes = useStyles();
-  const { buttonText, handleClick, isReady } = props;
+  const { buttonText, handleClick, isReady, audioClick1 } = props;
+
+  const triggerClick = () => {
+    audioClick1.play();
+    handleClick();
+  };
   return (
     <Box className={classes.container}>
       {isReady ? (
-        <MainButton
-          variant="contained"
-          // onClick={() => handleSelection(id)}
-          onClick={handleClick}
-        >
+        <MainButton variant="contained" onClick={triggerClick}>
           <div className={classes.btnContainer}>{buttonText}</div>
         </MainButton>
       ) : (
-        <MainButton
-          variant="contained"
-          // onClick={() => handleSelection(id)}
-          onClick={handleClick}
-          disabled
-        >
+        <MainButton variant="contained" disabled>
           <div className={classes.btnContainerDisabled}>{buttonText}</div>
         </MainButton>
       )}

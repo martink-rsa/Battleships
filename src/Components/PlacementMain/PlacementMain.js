@@ -44,6 +44,8 @@ const PlacementMain = props => {
     setGameboards,
     computerPlaced,
     setComputerPlaced,
+    audioClick1,
+    audioClick2,
   } = props;
 
   // See which ships are available to select for
@@ -72,6 +74,7 @@ const PlacementMain = props => {
       );
       // ADD A CHECK HERE TO SEE IF ALL SHIPS HAVE BEEN PLACED
       if (playerGameboard.isLegalPlacement(newShip, [x, y])) {
+        audioClick2.play();
         playerGameboard.placeShip(newShip, [x, y]);
         // Disable the ship placement button
         setGameboards(prevState => {
@@ -183,6 +186,7 @@ const PlacementMain = props => {
         buttonText="Play"
         handleClick={props.startGameplay}
         isReady={!placementStates.isStillPlacing}
+        audioClick1={audioClick1}
       />
       <ShipSelector
         changeAlignment={changeAlignment}

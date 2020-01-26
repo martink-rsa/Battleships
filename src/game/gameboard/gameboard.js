@@ -89,6 +89,22 @@ const Gameboard = (playerID, size) => {
     return true;
   };
 
+  // Check if an attack can be made
+
+  const isLegalAttack = coords => {
+    const x = coords[0];
+    const y = coords[1];
+    const grid = [..._grid];
+    const gridSize = grid.length;
+    if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
+      const gridContent = grid[x][y];
+      if (gridContent !== 'X' && gridContent !== 'H' && gridContent !== 'S') {
+        return true;
+      }
+    }
+    return false;
+  };
+
   // Handle an attack or a miss
   const receiveAttack = coordsIn => {
     const x = parseInt(coordsIn[0], 10);
@@ -157,6 +173,7 @@ const Gameboard = (playerID, size) => {
     getShip,
     placeShip,
     isLegalPlacement,
+    isLegalAttack,
     receiveAttack,
     allShipsSunk,
   };

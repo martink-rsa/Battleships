@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
 
 const AttackMain = props => {
   const classes = useStyles();
+
   const {
     gameboards,
     setGameboards,
@@ -49,13 +50,31 @@ const AttackMain = props => {
     players,
     currentCoords,
     setCurrentCoords,
+    playerAttackReady,
+    setPlayerAttackReady,
+    playerAttackMade,
+    setPlayerAttackMade,
+    audioClick1,
+    audioClick2,
   } = props;
 
   const handleClick = coords => {
     const x = coords.split(' ')[0];
     const y = coords.split(' ')[1];
-    setCurrentCoords([x, y]);
+    console.log('playerAttackReady');
+    console.log(playerAttackReady);
+    console.log('playerAttackMade');
+    console.log(playerAttackMade);
+    if (gameboards[1].isLegalAttack([x, y])) {
+      console.log([x, y]);
+      audioClick2.play();
+      setCurrentCoords([x, y]);
+      setPlayerAttackReady(true);
+    }
   };
+
+  console.log('AttackMain LOADED');
+  console.log(currentCoords);
 
   return (
     <div>
@@ -66,9 +85,15 @@ const AttackMain = props => {
           boardIndex={1}
           handleClick={handleClick}
           currentCoords={currentCoords}
+          setPlayerAttackMade={setPlayerAttackMade}
         />
       </Paper>
-      <MainActionBar buttonText="Attack" handleClick={handleAttack} isReady />
+      <MainActionBar
+        buttonText="Attack"
+        handleClick={handleAttack}
+        audioClick1={audioClick1}
+        isReady={playerAttackReady === true && playerAttackMade === false}
+      />
     </div>
   );
 };

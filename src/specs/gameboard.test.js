@@ -1,5 +1,6 @@
 import Gameboard from '../game/gameboard/gameboard';
 import Ship from '../game/ship/ship';
+import Player from '../game/player/player';
 
 // Gameboard Creation
 describe('Gameboard: Game board creation', () => {
@@ -442,5 +443,43 @@ describe('Gameboard: allShipsSunk() (Check if all ships have been sunk)', () => 
     newGameboard.receiveAttack([6, 2]);
     newGameboard.receiveAttack([6, 3]);
     expect(newGameboard.allShipsSunk()).toEqual(true);
+  });
+});
+
+// Check if an attack will be legal
+describe('Gameboard: Check if attacks are legal', () => {
+  test('Gameboard returns true when attack is legal', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    const newShip2 = Ship(0, 3, [], false, 'vertical');
+    const newPlayer1 = Player(0, 'Henry Kwan', 'human', 'default', 'blue');
+    newGameboard2.placeShip(newShip2, [1, 3]);
+    newPlayer1.makeAttack(newGameboard2, [1, 3]);
+    expect(newGameboard2.grid[1][3]).toBe('H');
+    expect(newGameboard2.isLegalAttack([2, 3])).toEqual(true);
+  });
+  test('Gameboard returns false when attack is out of X grid range', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    expect(newGameboard2.isLegalAttack([-1, 3])).toEqual(false);
+  });
+  test('Gameboard returns false when attack is out of X grid range', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    expect(newGameboard2.isLegalAttack([8, 3])).toEqual(false);
+  });
+  test('Gameboard returns false when attack is out of Y grid range', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    expect(newGameboard2.isLegalAttack([0, -1])).toEqual(false);
+  });
+  test('Gameboard returns false when attack is out of Y grid range', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    expect(newGameboard2.isLegalAttack([0, 8])).toEqual(false);
+  });
+  test('Gameboard returns false when attack is not legal due to grid cell already being attacked', () => {
+    const newGameboard2 = Gameboard(0, 8);
+    const newShip2 = Ship(0, 3, [], false, 'vertical');
+    const newPlayer1 = Player(0, 'Henry Kwan', 'human', 'default', 'blue');
+    newGameboard2.placeShip(newShip2, [1, 3]);
+    newPlayer1.makeAttack(newGameboard2, [1, 3]);
+    expect(newGameboard2.grid[1][3]).toBe('H');
+    expect(newGameboard2.isLegalAttack([1, 3])).toEqual(false);
   });
 });

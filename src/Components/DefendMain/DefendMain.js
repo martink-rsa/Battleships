@@ -4,28 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import MainActionBar from '../MainActionBar/MainActionBar';
 import DefendBoard from '../DefendBoard/DefendBoard';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 0,
-    margin: 0,
-    width: '100%',
-    height: '100%',
-  },
-  paper: {
-    padding: 0,
-    margin: 0,
-    backgroundColor: 'rgba(255,255,255,0.8)',
-  },
-}));
-
 const DefendMain = props => {
-  const classes = useStyles();
-  const {
-    gameboards,
-    setGameboards,
-    computerPlaced,
-    setComputerPlaced,
-  } = props;
+  const { gameboards, handleAttack, computerAttackMade, audioClick1 } = props;
 
   return (
     <div>
@@ -40,8 +20,9 @@ const DefendMain = props => {
       </Paper>
       <MainActionBar
         buttonText="Play"
-        handleClick={props.handleAttack}
-        isReady
+        handleClick={handleAttack}
+        audioClick1={audioClick1}
+        isReady={computerAttackMade === false}
       />
     </div>
   );

@@ -11,6 +11,8 @@ const Placement = props => {
     startGameplay,
     computerPlaced,
     setComputerPlaced,
+    audioClick1,
+    audioClick2,
   } = props;
 
   return (
@@ -22,6 +24,8 @@ const Placement = props => {
         startGameplay={startGameplay}
         computerPlaced={computerPlaced}
         setComputerPlaced={setComputerPlaced}
+        audioClick1={audioClick1}
+        audioClick2={audioClick2}
       />
       {/* <MainActionBar buttonText="Play" handleClick={startGameplay} />
       <ShipSelector /> */}

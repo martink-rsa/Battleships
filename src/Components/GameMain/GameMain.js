@@ -8,6 +8,9 @@ import GameOver from '../GameOver/GameOver';
 import Player from '../../game/player/player';
 import Gameboard from '../../game/gameboard/gameboard';
 import ComputerAI from '../../game/computerAI/computerAI';
+import UIfx from 'uifx';
+import AudioClick1 from '../../Assets/Sounds/click1.wav';
+import AudioClick2 from '../../Assets/Sounds/click2.wav';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,6 +43,15 @@ const useStyles = makeStyles(() => ({
     // background: 'rgba(255,255,255,0.1)',
   },
 }));
+
+const audioClick1 = new UIfx(AudioClick1, {
+  volume: 0.9, // number between 0.0 ~ 1.0
+  throttleMs: 100,
+});
+const audioClick2 = new UIfx(AudioClick2, {
+  volume: 0.9, // number between 0.0 ~ 1.0
+  throttleMs: 100,
+});
 
 const GameMain = props => {
   const classes = useStyles();
@@ -87,12 +99,15 @@ const GameMain = props => {
   const renderGameState = currentGameState => {
     switch (currentGameState) {
       case 'intro':
-        return <Intro changeGameState={changeGameState} />;
+        return (
+          <Intro changeGameState={changeGameState} audioClick1={audioClick1} />
+        );
       case 'playerSelection':
         return (
           <PlayerSelection
             changeGameState={changeGameState}
             startNewGame={startNewGame}
+            audioClick1={audioClick1}
           />
         );
       case 'placement':
@@ -104,6 +119,8 @@ const GameMain = props => {
             startGameplay={startGameplay}
             computerPlaced={computerPlaced}
             setComputerPlaced={setComputerPlaced}
+            audioClick1={audioClick1}
+            audioClick2={audioClick2}
           />
         );
       case 'gameplay':
@@ -118,6 +135,8 @@ const GameMain = props => {
             currentCoords={currentCoords}
             setCurrentCoords={setCurrentCoords}
             AI={AI}
+            audioClick1={audioClick1}
+            audioClick2={audioClick2}
           />
         );
       case 'gameover':
@@ -127,6 +146,7 @@ const GameMain = props => {
             players={players}
             winner={winner}
             resetGame={resetGame}
+            audioClick1={audioClick1}
           />
         );
       default:
