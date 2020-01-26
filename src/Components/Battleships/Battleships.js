@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GameMain from '../GameMain/GameMain';
 import BackgroundI1 from '../../Assets/Images/bg-i1.png';
+import { Howl, Howler } from 'howler';
+import AudioSoundscape from '../../Assets/Sounds/audioSoundscape.mp3';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -18,8 +20,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const audioSoundscape = new Howl({
+  src: [AudioSoundscape],
+  loop: true,
+});
+
 const Battleships = () => {
   const classes = useStyles();
+  audioSoundscape.play();
   return (
     <div className={classes.bg}>
       <Container maxWidth="sm" className={classes.container}>

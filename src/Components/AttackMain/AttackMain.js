@@ -61,20 +61,12 @@ const AttackMain = props => {
   const handleClick = coords => {
     const x = coords.split(' ')[0];
     const y = coords.split(' ')[1];
-    console.log('playerAttackReady');
-    console.log(playerAttackReady);
-    console.log('playerAttackMade');
-    console.log(playerAttackMade);
     if (gameboards[1].isLegalAttack([x, y])) {
-      console.log([x, y]);
       audioClick2.play();
       setCurrentCoords([x, y]);
       setPlayerAttackReady(true);
     }
   };
-
-  console.log('AttackMain LOADED');
-  console.log(currentCoords);
 
   return (
     <div>

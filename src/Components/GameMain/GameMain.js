@@ -8,9 +8,10 @@ import GameOver from '../GameOver/GameOver';
 import Player from '../../game/player/player';
 import Gameboard from '../../game/gameboard/gameboard';
 import ComputerAI from '../../game/computerAI/computerAI';
-import UIfx from 'uifx';
+import { Howl, Howler } from 'howler';
 import AudioClick1 from '../../Assets/Sounds/click1.wav';
 import AudioClick2 from '../../Assets/Sounds/click2.wav';
+import AudioSoundscape from '../../Assets/Sounds/audioSoundscape.mp3';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,14 +45,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const audioClick1 = new UIfx(AudioClick1, {
+const audioClick1 = new Howl({
+  src: [AudioClick1],
+});
+const audioClick2 = new Howl({
+  src: [AudioClick2],
+});
+
+/* const audioClick1 = new UIfx(AudioClick1, {
   volume: 0.9, // number between 0.0 ~ 1.0
   throttleMs: 100,
-});
-const audioClick2 = new UIfx(AudioClick2, {
+}); */
+/* const audioClick2 = new UIfx(AudioClick2, {
   volume: 0.9, // number between 0.0 ~ 1.0
   throttleMs: 100,
-});
+}); */
 
 const GameMain = props => {
   const classes = useStyles();
