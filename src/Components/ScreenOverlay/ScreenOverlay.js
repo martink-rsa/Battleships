@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Overlay from '../../Assets/Images/screen-overlay.png';
 
@@ -16,9 +16,6 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     position: 'absolute',
-    // top: '0',
-    // left: '0',
-    // marginTop: '1px',
     height: '401px',
     width: '400px',
     backgroundImage: `url(${Overlay})`,

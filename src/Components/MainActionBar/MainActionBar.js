@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
   paper: {
     padding: 0,
     margin: 0,
-    // backgroundColor: 'rgba(255,255,255,0.8)',
   },
   container: {
     display: 'flex',
@@ -23,7 +22,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     height: '67px',
     width: '100%',
-  }, // 214px x 47px
+  },
   btnContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -40,7 +39,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     height: '47px',
     width: '100%',
-    // opacity: '0.7',
     backgroundImage: `url(${BtnDisabled})`,
   },
 }));
@@ -53,8 +51,6 @@ const MainButton = withStyles({
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
-    // padding: '6px 12px',
-    // border: '1px solid',
     lineHeight: 1.5,
     width: '214px',
     height: '52px',
@@ -62,16 +58,13 @@ const MainButton = withStyles({
     backgroundColor: 'transparent',
     '&:hover': {
       boxShadow: 'none',
-      background: 'rgb(0,105,217)',
       background:
         'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0.2278820375335121) 18%, rgba(65,192,219,0) 31%)',
     },
     '&:active': {
       boxShadow: 'none',
     },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
+    '&:focus': {},
   },
 })(Button);
 

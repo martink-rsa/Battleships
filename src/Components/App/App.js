@@ -4,6 +4,7 @@ import './App.css';
 import { Howl } from 'howler';
 import Battleships from '../Battleships/Battleships';
 import Loading from '../Loading/Loading';
+import Bg1 from '../../Assets/Images/bg1.jpg';
 import AudioSoundscape from '../../Assets/Sounds/audioSoundscape.mp3';
 import AudioClick1 from '../../Assets/Sounds/click1.wav';
 import AudioClick2 from '../../Assets/Sounds/click2.wav';
@@ -48,7 +49,7 @@ function App() {
 
   useEffect(() => {
     setIsLoaded(true);
-  });
+  }, []);
 
   return (
     <div className={classes.root}>

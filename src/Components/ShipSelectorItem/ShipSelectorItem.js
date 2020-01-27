@@ -18,11 +18,8 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    // background: '#e0e0e0',
     width: '79px',
     height: '103px',
-    // border: '2px solid rgb(36,36,41)',
-    // borderRadius: '3px',
     margin: '0 2px',
     backgroundColor: 'transparent',
   },
@@ -42,7 +39,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     height: '103px',
     width: '100%',
-    // opacity: '0.7',
     backgroundImage: `url(${BtnDisabled})`,
   },
   shipContainerSelected: {
@@ -52,8 +48,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     height: '103px',
     width: '100%',
-
-    // background: 'red',
     backgroundImage: `url(${BtnSelected})`,
   },
 }));
@@ -64,7 +58,6 @@ const SelectionButton = withStyles({
     justifyContent: 'center',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    // backgroundColor: '#e0e0e0',
     boxShadow: 'none',
     textTransform: 'none',
     padding: '0px',
@@ -74,27 +67,19 @@ const SelectionButton = withStyles({
     width: '100%',
     borderRadius: '0px',
     backgroundColor: 'transparent',
-
     '&:hover': {
-      // height: '80%',
-      // width: '80%',
-      background: 'rgb(0,105,217)',
       background:
         'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0) 70%)',
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      // backgroundColor: '#0062cc',
       borderColor: '#005cbf',
     },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
+    '&:focus': {},
   },
   label: {
     height: '100%',
-    // backgroundColor: 'red',
     backgroundColor: 'transparent',
   },
   disabled: {

@@ -4,7 +4,9 @@ A Battleships game made for a TOP assignment, intended to teach one about Jest T
 
 ## Made with:
 
-React, Jest, HTML, CSS, JavaScript
+Web: React, Jest, HTML, CSS, JavaScript
+
+Tools: Autodesk 3ds Max, Adobe Photoshop, Ableton Live
 
 ## How to run
 

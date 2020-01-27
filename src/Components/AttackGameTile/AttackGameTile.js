@@ -22,8 +22,6 @@ const useStyles = makeStyles(() => ({
     background: 'rgba(65, 192, 219, .8)',
     boxShadow: 'inset 0px 0px 0px 2px rgba(56,143,166,1)',
     borderRadius: '5px',
-    // borderRadius: '5px',
-    // outline: '1px solid rgba(125, 193, 223, 1)',
   },
   rotate: {
     transform: 'rotate(-90deg)',
@@ -48,7 +46,7 @@ const useStyles = makeStyles(() => ({
 
 const AttackGameTile = props => {
   const classes = useStyles();
-  const { content, alignment, type, visible, selected } = props;
+  const { content, visible, selected } = props;
 
   let preparedClasses;
   if (selected) {

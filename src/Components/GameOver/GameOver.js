@@ -4,17 +4,7 @@ import GameOverMain from '../GameOverMain/GameOverMain';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const GameOver = props => {
-  const {
-    players,
-    winner,
-    resetGame,
-    changeGameState,
-    audioClick1,
-    audioClick2,
-  } = props;
-  const nextGameState = () => {
-    changeGameState('playerSelection');
-  };
+  const { players, winner, resetGame, audioClick1, audioClick2 } = props;
 
   return (
     <div>

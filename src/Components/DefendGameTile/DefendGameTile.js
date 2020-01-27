@@ -139,7 +139,7 @@ const useStyles = makeStyles(() => ({
 
 const GameTileDefending = props => {
   const classes = useStyles();
-  const { content, alignment, type } = props;
+  const { content, alignment } = props;
   const getGameTile = tileType => {
     if (tileType === 'E') {
       // return <span className={classes.water} />;

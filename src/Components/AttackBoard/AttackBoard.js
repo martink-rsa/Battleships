@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import AttackGameTile from '../AttackGameTile/AttackGameTile';
 import Bg1 from '../../Assets/Images/bg1.jpg';
-// import Bg2 from '../../Assets/Images/bg2.jpg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -58,10 +57,9 @@ const HiddenButton = withStyles({
 
 const AttackBoard = props => {
   const classes = useStyles();
-  const { setPlayerAttackMade } = props;
 
   const generateBoard = gameboard => {
-    const { boardIndex, players, currentCoords } = props;
+    const { players, currentCoords } = props;
     const grid = gameboard.grid;
     const newBoard = [];
     const size = 8;

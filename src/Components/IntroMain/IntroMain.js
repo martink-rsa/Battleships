@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import Logo from '../../Assets/Images/logo.png';

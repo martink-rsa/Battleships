@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import DefendGameTile from '../DefendGameTile/DefendGameTile';
 import Bg1 from '../../Assets/Images/bg1.jpg';
-// import Bg2 from '../../Assets/Images/bg2.jpg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -29,16 +28,13 @@ const useStyles = makeStyles(() => ({
   },
   boardCell: {
     position: 'relative',
-    // background: 'rgb(34, 84, 141)',
     width: 'auto',
     height: 'auto',
-    // outline: '1px solid rgba(0,0,0,0.4)',
   },
   cellButton: {
     position: 'absolute',
     height: '100%',
     width: '100%',
-    // background: 'black',
   },
 }));
 
@@ -55,18 +51,6 @@ const HiddenButton = withStyles({
     '&:hover': {
       background: 'transparent',
     },
-    /* '&:hover': {
-      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
-    },
-    '&:active': {
-      boxSizing: 'border-box',
-      boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.5) inset',
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      borderColor: '#005cbf',
-    },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    }, */
   },
 })(Button);
 
@@ -75,7 +59,6 @@ const DefendBoard = props => {
 
   // Generate the gameboard
   const generateBoard = gameboard => {
-    const { boardIndex } = props;
     const grid = gameboard.grid;
     const newBoard = [];
     const size = 8;

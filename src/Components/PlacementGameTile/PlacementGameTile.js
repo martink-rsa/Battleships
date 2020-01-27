@@ -76,7 +76,7 @@ const useStyles = makeStyles(() => ({
 
 const PlacementGameTile = props => {
   const classes = useStyles();
-  const { content, alignment, type } = props;
+  const { content, alignment } = props;
   const getGameTile = tileType => {
     const shipTypeIndex = tileType.split('')[0];
     const shipPartIndex = tileType.split('')[1];

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import ShipSelectorItem from '../ShipSelectorItem/ShipSelectorItem';
-// import BackgroundI1 from './bg-i1.png';
 import BackgroundI2 from '../../Assets/Images/bg-i2.png';
 import BtnS3Selected from '../../Assets/Images/btn-style-3-selected.png';
 import BtnS3Disabled from '../../Assets/Images/btn-style-3-disabled.png';
@@ -22,7 +21,6 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'rgba(255,255,255,0.8)',
   },
   wrapper: {
-    // background: 'red',
     display: 'flex',
     justifyContent: 'center',
     height: '195px',
@@ -33,7 +31,6 @@ const useStyles = makeStyles(() => ({
   container: {
     height: '100%',
     width: '100%',
-    // width: '300px',
   },
   title: {
     fontSize: '1rem',
@@ -49,7 +46,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     width: '162px',
     height: '52px',
-    // backgroundImage: `url(${BtnNormal})`,
     backgroundImage: `url(${BtnS3Selected})`,
     backgroundPosition: 'center top',
   },
@@ -60,7 +56,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     width: '162px',
     height: '52px',
-    // backgroundImage: `url(${BtnNormal})`,
     backgroundImage: `url(${BtnS3Disabled})`,
     backgroundPosition: 'center top',
   },
@@ -74,24 +69,19 @@ const AlignmentButton = withStyles({
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
-    // padding: '6px 12px',
-    // border: '1px solid',
     lineHeight: 1.5,
     width: '162px',
     height: '52px',
     borderRadius: '0px',
     '&:hover': {
       boxShadow: 'none',
-      background: 'rgb(0,105,217)',
       background:
         'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0.2278820375335121) 18%, rgba(65,192,219,0) 31%)',
     },
     '&:active': {
       boxShadow: 'none',
     },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
+    '&:focus': {},
   },
 })(Button);
 
@@ -105,7 +95,6 @@ const ShipSelector = props => {
     changeAlignment,
     alignment,
   } = props;
-  // const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <div className={classes.wrapper}>

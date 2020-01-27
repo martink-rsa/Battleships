@@ -48,8 +48,6 @@ const ArrowButton = withStyles({
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
-    // padding: '6px 12px',
-    // border: '1px solid',
     lineHeight: 1.5,
     width: '36px',
     height: '36px',
@@ -58,16 +56,13 @@ const ArrowButton = withStyles({
 
     '&:hover': {
       boxShadow: 'none',
-      background: 'rgb(0,105,217)',
       background:
         'radial-gradient(circle, rgba(65,192,219,1) 0%, rgba(65,192,219,0.22) 18%, rgba(65,192,219,0) 31%)',
     },
     '&:active': {
       boxShadow: 'none',
     },
-    '&:focus': {
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
+    '&:focus': {},
   },
 })(Button);
 

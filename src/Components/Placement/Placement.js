@@ -1,7 +1,5 @@
 import React from 'react';
 import PlacementMain from '../PlacementMain/PlacementMain';
-import ShipSelector from '../ShipSelector/ShipSelector';
-import MainActionBar from '../MainActionBar/MainActionBar';
 
 const Placement = props => {
   const {
@@ -27,8 +25,6 @@ const Placement = props => {
         audioClick1={audioClick1}
         audioClick2={audioClick2}
       />
-      {/* <MainActionBar buttonText="Play" handleClick={startGameplay} />
-      <ShipSelector /> */}
     </div>
   );
 };

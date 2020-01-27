@@ -4,13 +4,7 @@ import StoryMain from '../StoryMain/StoryMain';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const Story = props => {
-  const {
-    startNewGame,
-    changeGameState,
-    tempPlayers,
-    audioClick1,
-    audioClick2,
-  } = props;
+  const { startNewGame, tempPlayers, audioClick1, audioClick2 } = props;
 
   const startGameplay = () => {
     startNewGame();
