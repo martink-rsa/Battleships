@@ -23,7 +23,6 @@ const useStyles = makeStyles(() => ({
 const audioSoundscape = new Howl({
   src: [AudioSoundscape],
   loop: true,
-  volume: 0,
 });
 
 const Battleships = () => {
