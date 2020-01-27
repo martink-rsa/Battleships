@@ -4,7 +4,13 @@ import StoryMain from '../StoryMain/StoryMain';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const Story = props => {
-  const { startNewGame, changeGameState, tempPlayers, audioClick1 } = props;
+  const {
+    startNewGame,
+    changeGameState,
+    tempPlayers,
+    audioClick1,
+    audioClick2,
+  } = props;
 
   const startGameplay = () => {
     startNewGame();
@@ -13,7 +19,7 @@ const Story = props => {
   return (
     <div>
       <Paper>
-        <StoryMain tempPlayers={tempPlayers} />
+        <StoryMain tempPlayers={tempPlayers} audioClick2={audioClick2} />
       </Paper>
       <MainActionBar
         buttonText="Start"

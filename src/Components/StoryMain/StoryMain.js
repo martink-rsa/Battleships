@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import ScreenOverlay from '../ScreenOverlay/ScreenOverlay';
 import ArrowButtonController from '../ArrowButtonController/ArrowButtonController';
@@ -18,8 +18,6 @@ const useStyles = makeStyles(() => ({
   },
   boardGrid: {
     display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     flexDirection: 'column',
     height: '400px',
     width: '400px',
@@ -57,7 +55,7 @@ const useStyles = makeStyles(() => ({
 
 const StoryMain = props => {
   const classes = useStyles();
-  const { tempPlayers } = props;
+  const { tempPlayers, audioClick2 } = props;
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const renderPage = currentPage => {
@@ -67,13 +65,13 @@ const StoryMain = props => {
           <div className={classes.textContainer}>
             {`It is year 2271. Earth lies in destruction.
             You, ${tempPlayers[0].name}, are captain of NG-S, a fleet of
-            colonization ships on corse for a new home, planet Centauri Beta, 4.25 light years away from earth.
+            colonization ships on corse for a new home, planet Proxima Centauri, 4.243 light years away from earth.
             On board are most of the remaining humans.
             Your fleet is humanity's last hope to reestablish itself.`}
           </div>
           <div className={classes.textContainer}>
             {`Your fleet is in quadrant XPS-401-924, approximately 603,6 million km away
-            from Centauri Beta, when it is jumped by a fleet of pirates who were hiding
+            from Proxima Centauri, when it is jumped by a fleet of pirates who were hiding
             behind an electrical storm. A transmission arrives from their
             Captain, ${tempPlayers[1].name}, a prestigious Xaaranthian pirate
             leader.`}
@@ -94,8 +92,10 @@ const StoryMain = props => {
             </span>
           </div>
           <div className={classes.textContainer}>
-            {`Not long after, the pirates begin firing upon your ship. The fate of
-            humanity now lies in your hands, Captain. God speed.`}
+            {`Not long after, the pirates begin firing upon your ship. You instruct the crew to man their positions.`}
+          </div>
+          <div className={classes.textContainer}>
+            {`The fate of humanity now lies in your hands, Captain.`}
           </div>
         </div>
       );
@@ -117,6 +117,7 @@ const StoryMain = props => {
                 changePage={changePage}
                 pageIndex={currentPageIndex}
                 maxPages={2}
+                audioClick2={audioClick2}
               />
             </div>
           </div>

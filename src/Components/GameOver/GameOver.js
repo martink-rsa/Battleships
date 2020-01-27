@@ -4,7 +4,14 @@ import GameOverMain from '../GameOverMain/GameOverMain';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
 const GameOver = props => {
-  const { players, winner, resetGame, changeGameState, audioClick1 } = props;
+  const {
+    players,
+    winner,
+    resetGame,
+    changeGameState,
+    audioClick1,
+    audioClick2,
+  } = props;
   const nextGameState = () => {
     changeGameState('playerSelection');
   };
@@ -12,7 +19,11 @@ const GameOver = props => {
   return (
     <div>
       <Paper>
-        <GameOverMain players={players} winner={winner} />
+        <GameOverMain
+          players={players}
+          winner={winner}
+          audioClick2={audioClick2}
+        />
       </Paper>
       <MainActionBar
         buttonText="Restart"

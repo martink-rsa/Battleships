@@ -9,11 +9,6 @@ import Player from '../../game/player/player';
 import GameOver from '../GameOver/GameOver';
 import Gameboard from '../../game/gameboard/gameboard';
 import ComputerAI from '../../game/computerAI/computerAI';
-import { Howl } from 'howler';
-import AudioClick1 from '../../Assets/Sounds/click1.wav';
-import AudioClick2 from '../../Assets/Sounds/click2.wav';
-import AudioHit from '../../Assets/Sounds/hit.wav';
-import AudioSunk from '../../Assets/Sounds/sunk.wav';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,11 +17,6 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
   },
-  /* paper: {
-    padding: 0,
-    margin: 0,
-    backgroundColor: 'rgba(255,255,255,0.8)',
-  }, */
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -34,7 +24,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     height: 'auto',
     width: '100%',
-    // background: 'rgba(255,255,255,0.1)',
   },
   mainContainer: {
     display: 'flex',
@@ -43,27 +32,12 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     minHeight: '400px',
     width: '400px',
-    // background: 'rgba(255,255,255,0.1)',
   },
 }));
 
-const audioClick1 = new Howl({
-  src: [AudioClick1],
-});
-const audioClick2 = new Howl({
-  src: [AudioClick2],
-});
-const audioHit = new Howl({
-  src: [AudioHit],
-  volume: 0.2,
-});
-const audioSunk = new Howl({
-  src: [AudioSunk],
-  volume: 0.3,
-});
-
 const GameMain = props => {
   const classes = useStyles();
+  const { audioClick1, audioClick2, audioHit, audioSunk } = props;
   const [gameState, setGameState] = useState('intro');
   const [tempPlayers, setTempPlayers] = useState([
     {
@@ -73,7 +47,7 @@ const GameMain = props => {
       color: 'Blue',
     },
     {
-      name: 'Admiral Bytes',
+      name: 'Kazaaakpleth',
       type: 'Computer',
       theme: 'Default',
       color: 'Red',
@@ -85,7 +59,7 @@ const GameMain = props => {
   const [currentTurn, setCurrentTurn] = useState(0);
   const [currentCoords, setCurrentCoords] = useState([]);
   const [AI, setAI] = useState(ComputerAI(1));
-  const [winner, setWinner] = useState(1);
+  const [winner, setWinner] = useState(0);
 
   const changeGameState = newGameState => {
     setGameState(newGameState);
@@ -141,30 +115,22 @@ const GameMain = props => {
             startNewGame={startNewGame}
             tempPlayers={tempPlayers}
             audioClick1={audioClick1}
+            audioClick2={audioClick2}
           />
         );
       case 'placement':
         return (
-          <GameOver
-            changeGameState={changeGameState}
+          <Placement
+            gameboards={gameboards}
+            setGameboards={setGameboards}
             players={players}
-            winner={winner}
-            resetGame={resetGame}
+            startGameplay={startGameplay}
+            computerPlaced={computerPlaced}
+            setComputerPlaced={setComputerPlaced}
             audioClick1={audioClick1}
+            audioClick2={audioClick2}
           />
         );
-      // return (
-      //   <Placement
-      //     gameboards={gameboards}
-      //     setGameboards={setGameboards}
-      //     players={players}
-      //     startGameplay={startGameplay}
-      //     computerPlaced={computerPlaced}
-      //     setComputerPlaced={setComputerPlaced}
-      //     audioClick1={audioClick1}
-      //     audioClick2={audioClick2}
-      //   />
-      // );
       case 'gameplay':
         return (
           <Gameplay
@@ -192,6 +158,7 @@ const GameMain = props => {
             winner={winner}
             resetGame={resetGame}
             audioClick1={audioClick1}
+            audioClick2={audioClick2}
           />
         );
       default:

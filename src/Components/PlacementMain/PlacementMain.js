@@ -164,6 +164,7 @@ const PlacementMain = props => {
   createComputerShips(gameboards[1]);
 
   const handleSelection = id => {
+    audioClick2.play();
     setPlacementStates(prevState => {
       const tempState = { ...prevState };
       tempState.selectedIndex = id;
@@ -176,7 +177,6 @@ const PlacementMain = props => {
       <Paper>
         <PlacementBoard
           type="placement"
-          // grid={gameboards[0].grid}
           gameboards={gameboards}
           boardIndex={0}
           handleBoardClick={handleBoardClick}
@@ -194,6 +194,7 @@ const PlacementMain = props => {
         shipItems={placementStates.shipItems}
         handleSelection={handleSelection}
         selectedIndex={placementStates.selectedIndex}
+        audioClick2={audioClick2}
       />
     </div>
   );

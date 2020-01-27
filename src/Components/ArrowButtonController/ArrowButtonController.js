@@ -73,7 +73,7 @@ const ArrowButton = withStyles({
 
 const ArrowButtonController = props => {
   const classes = useStyles();
-  const { changePage, pageIndex, maxPages } = props;
+  const { changePage, pageIndex, maxPages, audioClick2 } = props;
 
   const triggerClick = direction => {
     let currentIndex = pageIndex;
@@ -82,6 +82,7 @@ const ArrowButtonController = props => {
     } else if (direction === 'up') {
       currentIndex += 1;
     }
+    audioClick2.play();
     changePage(currentIndex);
   };
 

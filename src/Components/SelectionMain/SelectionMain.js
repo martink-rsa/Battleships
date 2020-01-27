@@ -77,7 +77,13 @@ const useStylesCustomInput = makeStyles(theme => ({
 function CustomTextField(props) {
   const classes = useStylesCustomInput();
   return (
-    <TextField InputProps={{ classes, disableUnderline: true }} {...props} />
+    <TextField
+      InputProps={{ classes, disableUnderline: true }}
+      inputProps={{
+        maxLength: 22,
+      }}
+      {...props}
+    />
   );
 }
 
@@ -92,7 +98,6 @@ const SelectionMain = props => {
     } else {
       id = 1;
     }
-
     const updatedPlayers = [...tempPlayers];
     updatedPlayers[id].name = e.currentTarget.value;
     setTempPlayers(updatedPlayers);
@@ -113,7 +118,6 @@ const SelectionMain = props => {
                   className={classes.margin}
                   value={tempPlayers[0].name}
                   onChange={handleChange}
-                  // defaultValue="Lily Reed"
                   variant="filled"
                   id="player-name-input"
                 />
@@ -127,7 +131,6 @@ const SelectionMain = props => {
                   className={classes.margin}
                   value={tempPlayers[1].name}
                   onChange={handleChange}
-                  // defaultValue="General Bytes"
                   variant="filled"
                   id="computer-name-input"
                 />
