@@ -65,7 +65,7 @@ const StoryMain = props => {
           <div className={classes.textContainer}>
             {`It is year 2271. Earth lies in destruction.
             You, ${tempPlayers[0].name}, are captain of NG-S, a fleet of
-            colonization ships on corse for a new home, planet Proxima Centauri, 4.243 light years away from earth.
+            colonization ships on course for a new home, planet Proxima Centauri, 4.243 light years away from earth.
             On board are most of the remaining humans.
             Your fleet is humanity's last hope to reestablish itself.`}
           </div>
@@ -83,7 +83,7 @@ const StoryMain = props => {
       return (
         <div className={classes.textWrapper}>
           <div className={classes.textContainer}>
-            Your onboard AI does short work of translating the message:{' '}
+            {`Your onboard AI does short work of translating the message:`}
           </div>
           <div className={classes.textContainer}>
             <span className={classes.quote}>
