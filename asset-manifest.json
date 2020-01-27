@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/Battleships/static/css/main.a300d52e.chunk.css",
+    "main.js": "/Battleships/static/js/main.64938929.chunk.js",
+    "main.js.map": "/Battleships/static/js/main.64938929.chunk.js.map",
+    "runtime-main.js": "/Battleships/static/js/runtime-main.4e9f0fc8.js",
+    "runtime-main.js.map": "/Battleships/static/js/runtime-main.4e9f0fc8.js.map",
+    "static/js/2.72c7d2f8.chunk.js": "/Battleships/static/js/2.72c7d2f8.chunk.js",
+    "static/js/2.72c7d2f8.chunk.js.map": "/Battleships/static/js/2.72c7d2f8.chunk.js.map",
+    "index.html": "/Battleships/index.html",
+    "precache-manifest.be634f82fb3eb678c87d9728d0713fa4.js": "/Battleships/precache-manifest.be634f82fb3eb678c87d9728d0713fa4.js",
+    "service-worker.js": "/Battleships/service-worker.js",
+    "static/css/main.a300d52e.chunk.css.map": "/Battleships/static/css/main.a300d52e.chunk.css.map",
+    "static/js/2.72c7d2f8.chunk.js.LICENSE": "/Battleships/static/js/2.72c7d2f8.chunk.js.LICENSE",
+    "static/media/Computer.png": "/Battleships/static/media/Computer.43dcc97f.png",
+    "static/media/Player.png": "/Battleships/static/media/Player.850418ea.png",
+    "static/media/Victory.png": "/Battleships/static/media/Victory.13a5174b.png",
+    "static/media/audioSoundscape.mp3": "/Battleships/static/media/audioSoundscape.4d18996b.mp3",
+    "static/media/bg-i1.png": "/Battleships/static/media/bg-i1.1fc96576.png",
+    "static/media/bg-i2.png": "/Battleships/static/media/bg-i2.fc12848a.png",
+    "static/media/bg1.jpg": "/Battleships/static/media/bg1.08a3c449.jpg",
+    "static/media/btn-style-1-normal.png": "/Battleships/static/media/btn-style-1-normal.c574b4f9.png",
+    "static/media/btn-style-2-normal3.png": "/Battleships/static/media/btn-style-2-normal3.72187b3d.png",
+    "static/media/btn-style-2-selected.png": "/Battleships/static/media/btn-style-2-selected.ac06f516.png",
+    "static/media/btn-style-3-disabled.png": "/Battleships/static/media/btn-style-3-disabled.be96333a.png",
+    "static/media/btn-style-3-selected.png": "/Battleships/static/media/btn-style-3-selected.4f327ecb.png",
+    "static/media/click1.wav": "/Battleships/static/media/click1.03acefdb.wav",
+    "static/media/click2.wav": "/Battleships/static/media/click2.e8171a9d.wav",
+    "static/media/hit.wav": "/Battleships/static/media/hit.85049374.wav",
+    "static/media/logo.png": "/Battleships/static/media/logo.1fb3c9cf.png",
+    "static/media/screen-overlay.png": "/Battleships/static/media/screen-overlay.ae827d2f.png",
+    "static/media/sunk.wav": "/Battleships/static/media/sunk.7d463458.wav"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4e9f0fc8.js",
+    "static/js/2.72c7d2f8.chunk.js",
+    "static/css/main.a300d52e.chunk.css",
+    "static/js/main.64938929.chunk.js"
+  ]
+}
