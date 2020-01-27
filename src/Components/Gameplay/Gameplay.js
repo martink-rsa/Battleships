@@ -19,6 +19,8 @@ const Gameplay = props => {
     setCurrentCoords,
     audioClick1,
     audioClick2,
+    audioHit,
+    audioSunk,
   } = props;
 
   const endTurn = () => {
@@ -29,9 +31,20 @@ const Gameplay = props => {
     }
   };
 
+  const playSound = content => {
+    if (content === 'H') {
+      //
+      audioHit.play();
+    } else if (content === 'S') {
+      //
+      audioSunk.play();
+    }
+  };
+
   const handleAttack = () => {
     let attacker;
     let defender;
+
     if (currentTurn === 0) {
       attacker = 0;
       defender = 1;
@@ -39,16 +52,26 @@ const Gameplay = props => {
       attacker = 0;
       defender = 1;
     }
+
     if (currentTurn === 0) {
       setPlayerAttackMade(true);
       setPlayerAttackReady(false);
       setComputerAttackMade(false);
+
       players[attacker].makeAttack(gameboards[defender], currentCoords);
+      const content =
+        gameboards[defender].grid[currentCoords[0]][currentCoords[1]];
+      playSound(content);
     } else if (currentTurn === 1) {
       setPlayerAttackMade(false);
       setComputerAttackMade(true);
       props.AI.performAIAttack(gameboards[0]);
+      const lastAttackCoords = props.AI.lastAttackCoords;
+      const content =
+        gameboards[0].grid[lastAttackCoords[0]][lastAttackCoords[1]];
+      playSound(content);
     }
+
     if (gameboards[defender].allShipsSunk() === true) {
       setWinner(attacker);
       changeGameState('gameover');

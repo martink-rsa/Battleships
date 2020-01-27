@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Gameplay from '../Gameplay/Gameplay';
-import PlayerSelection from '../PlayerSelection/PlayerSelection';
+import PlayerSelection from '../Selection/Selection';
 import Placement from '../Placement/Placement';
 import Intro from '../Intro/Intro';
-import GameOver from '../GameOver/GameOver';
+import Story from '../Story/Story';
 import Player from '../../game/player/player';
+import GameOver from '../GameOver/GameOver';
 import Gameboard from '../../game/gameboard/gameboard';
 import ComputerAI from '../../game/computerAI/computerAI';
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
 import AudioClick1 from '../../Assets/Sounds/click1.wav';
 import AudioClick2 from '../../Assets/Sounds/click2.wav';
-import AudioSoundscape from '../../Assets/Sounds/audioSoundscape.mp3';
+import AudioHit from '../../Assets/Sounds/hit.wav';
+import AudioSunk from '../../Assets/Sounds/sunk.wav';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -51,19 +53,32 @@ const audioClick1 = new Howl({
 const audioClick2 = new Howl({
   src: [AudioClick2],
 });
-
-/* const audioClick1 = new UIfx(AudioClick1, {
-  volume: 0.9, // number between 0.0 ~ 1.0
-  throttleMs: 100,
-}); */
-/* const audioClick2 = new UIfx(AudioClick2, {
-  volume: 0.9, // number between 0.0 ~ 1.0
-  throttleMs: 100,
-}); */
+const audioHit = new Howl({
+  src: [AudioHit],
+  volume: 0.2,
+});
+const audioSunk = new Howl({
+  src: [AudioSunk],
+  volume: 0.3,
+});
 
 const GameMain = props => {
   const classes = useStyles();
   const [gameState, setGameState] = useState('intro');
+  const [tempPlayers, setTempPlayers] = useState([
+    {
+      name: 'Lily Reed',
+      type: 'Human',
+      theme: 'Default',
+      color: 'Blue',
+    },
+    {
+      name: 'Admiral Bytes',
+      type: 'Computer',
+      theme: 'Default',
+      color: 'Red',
+    },
+  ]);
   const [players, setPlayers] = useState([]);
   const [gameboards, setGameboards] = useState([]);
   const [computerPlaced, setComputerPlaced] = useState(false);
@@ -76,7 +91,8 @@ const GameMain = props => {
     setGameState(newGameState);
   };
 
-  const startNewGame = playersIn => {
+  const startNewGame = () => {
+    const playersIn = [...tempPlayers];
     const newPlayers = [];
     const newGameboards = [];
     const boardSize = 8;
@@ -114,23 +130,41 @@ const GameMain = props => {
         return (
           <PlayerSelection
             changeGameState={changeGameState}
+            audioClick1={audioClick1}
+            setTempPlayers={setTempPlayers}
+            tempPlayers={tempPlayers}
+          />
+        );
+      case 'story':
+        return (
+          <Story
             startNewGame={startNewGame}
+            tempPlayers={tempPlayers}
             audioClick1={audioClick1}
           />
         );
       case 'placement':
         return (
-          <Placement
-            gameboards={gameboards}
-            setGameboards={setGameboards}
+          <GameOver
+            changeGameState={changeGameState}
             players={players}
-            startGameplay={startGameplay}
-            computerPlaced={computerPlaced}
-            setComputerPlaced={setComputerPlaced}
+            winner={winner}
+            resetGame={resetGame}
             audioClick1={audioClick1}
-            audioClick2={audioClick2}
           />
         );
+      // return (
+      //   <Placement
+      //     gameboards={gameboards}
+      //     setGameboards={setGameboards}
+      //     players={players}
+      //     startGameplay={startGameplay}
+      //     computerPlaced={computerPlaced}
+      //     setComputerPlaced={setComputerPlaced}
+      //     audioClick1={audioClick1}
+      //     audioClick2={audioClick2}
+      //   />
+      // );
       case 'gameplay':
         return (
           <Gameplay
@@ -143,8 +177,11 @@ const GameMain = props => {
             currentCoords={currentCoords}
             setCurrentCoords={setCurrentCoords}
             AI={AI}
+            setWinner={setWinner}
             audioClick1={audioClick1}
             audioClick2={audioClick2}
+            audioHit={audioHit}
+            audioSunk={audioSunk}
           />
         );
       case 'gameover':

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Hit from '../../Assets/Images/Tiles/hit.png';
 import Miss from '../../Assets/Images/Tiles/miss.png';
+import Sunk from '../../Assets/Images/Tiles/sunk.png';
 import Fog from '../../Assets/Images/Tiles/fog.png';
 
 const useStyles = makeStyles(() => ({
@@ -30,6 +31,9 @@ const useStyles = makeStyles(() => ({
   hit: {
     backgroundImage: `url(${Hit})`,
   },
+  sunk: {
+    backgroundImage: `url(${Sunk})`,
+  },
   miss: {
     backgroundImage: `url(${Miss})`,
   },
@@ -54,8 +58,10 @@ const AttackGameTile = props => {
   }
   const getGameTile = tileType => {
     if (visible) {
-      if (tileType === 'H' || tileType === 'S') {
+      if (tileType === 'H') {
         return <div className={`${classes.base} ${classes.hit}`}></div>;
+      } else if (tileType === 'S') {
+        return <div className={`${classes.base} ${classes.sunk}`}></div>;
       } else if (tileType === 'X') {
         return <div className={`${classes.base} ${classes.miss}`}></div>;
       }

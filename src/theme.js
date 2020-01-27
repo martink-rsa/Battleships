@@ -22,19 +22,12 @@ const theme = createMuiTheme({
       default: '#282c34',
     },
   },
-  /*   overrides: {
-    MuiPaper: {
+  overrides: {
+    MuiInputLabel: {
       root: {
-        padding: '0px 20px',
-        margin: '20px 0',
-        backgroundColor: 'none', // 5d737e
+        color: 'rgba(255,255,255,0.6)',
       },
     },
-    MuiButton: {
-      root: {
-        margin: '5px',
-      },
-    },
-  }, */
+  },
 });
 export default theme;

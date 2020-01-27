@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Water from '../../Assets/Images/Tiles/Water2.png';
 import Ship00 from '../../Assets/Images/Tiles/0_0.png';
 import Ship01 from '../../Assets/Images/Tiles/0_1.png';
 import Ship02 from '../../Assets/Images/Tiles/0_2.png';
@@ -17,6 +16,7 @@ import Ship30 from '../../Assets/Images/Tiles/3_0.png';
 import Ship31 from '../../Assets/Images/Tiles/3_1.png';
 import Hit from '../../Assets/Images/Tiles/hit.png';
 import Miss from '../../Assets/Images/Tiles/miss.png';
+import Sunk from '../../Assets/Images/Tiles/sunk.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,14 +27,6 @@ const useStyles = makeStyles(() => ({
   },
   rotate: {
     transform: 'rotate(-90deg)',
-  },
-  water: {
-    backgroundImage: `url(${Water})`,
-    backgroundRepeat: 'no-repeat',
-    height: '50px',
-    width: '50px',
-    margin: 0,
-    padding: 0,
   },
   ship00: {
     backgroundImage: `url(${Ship00})`,
@@ -126,6 +118,12 @@ const useStyles = makeStyles(() => ({
     height: '50px',
     width: '50px',
   },
+  sunk: {
+    backgroundImage: `url(${Sunk})`,
+    backgroundRepeat: 'no-repeat',
+    height: '50px',
+    width: '50px',
+  },
   miss: {
     backgroundImage: `url(${Miss})`,
     backgroundRepeat: 'no-repeat',
@@ -151,7 +149,7 @@ const GameTileDefending = props => {
     } else if (tileType === 'H') {
       return <span className={classes.hit} />;
     } else if (tileType === 'S') {
-      return <span className={classes.hit} />;
+      return <span className={classes.sunk} />;
     } else {
       const shipTypeIndex = tileType.split('')[0];
       const shipPartIndex = tileType.split('')[1];

@@ -8,6 +8,7 @@ const ComputerAI = id => {
   let _shipFound = false;
   let _shipLocations = [];
   let _lastRandomAttackCoords = [];
+  let _lastAttackCoords = [];
   // let _availableLocations = [];
 
   // --- Utility
@@ -254,6 +255,7 @@ const ComputerAI = id => {
         alignmentObj[2],
       );
     }
+    _lastAttackCoords = attackCoords;
     gameboard.receiveAttack(attackCoords);
   };
 
@@ -279,6 +281,9 @@ const ComputerAI = id => {
     },
     set lastRandomAttackCoords(arrIn) {
       _lastRandomAttackCoords = arrIn;
+    },
+    get lastAttackCoords() {
+      return _lastAttackCoords;
     },
     // Functions
     getAlignment,

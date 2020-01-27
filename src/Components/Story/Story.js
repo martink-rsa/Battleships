@@ -1,22 +1,23 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import IntroMain from '../IntroMain/IntroMain';
+import StoryMain from '../StoryMain/StoryMain';
 import MainActionBar from '../MainActionBar/MainActionBar';
 
-const Intro = props => {
-  const { changeGameState, audioClick1 } = props;
-  const nextGameState = () => {
-    changeGameState('playerSelection');
+const Story = props => {
+  const { startNewGame, changeGameState, tempPlayers, audioClick1 } = props;
+
+  const startGameplay = () => {
+    startNewGame();
   };
 
   return (
     <div>
       <Paper>
-        <IntroMain />
+        <StoryMain tempPlayers={tempPlayers} />
       </Paper>
       <MainActionBar
         buttonText="Start"
-        handleClick={nextGameState}
+        handleClick={startGameplay}
         isReady
         audioClick1={audioClick1}
       />
@@ -24,4 +25,4 @@ const Intro = props => {
   );
 };
 
-export default Intro;
+export default Story;
