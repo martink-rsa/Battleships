@@ -72,8 +72,11 @@ const Gameplay = props => {
       playSound(content);
     }
 
-    if (gameboards[defender].allShipsSunk() === true) {
-      setWinner(attacker);
+    if (gameboards[0].allShipsSunk() === true) {
+      setWinner(1);
+      changeGameState('gameover');
+    } else if (gameboards[1].allShipsSunk() === true) {
+      setWinner(0);
       changeGameState('gameover');
     } else {
       setCurrentCoords([-1, -1]);
