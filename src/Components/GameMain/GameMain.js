@@ -87,6 +87,10 @@ const GameMain = props => {
   };
 
   const resetGame = () => {
+    setPlayers([]);
+    setGameboards([]);
+    setComputerPlaced(false);
+    setCurrentTurn(0);
     changeGameState('playerSelection');
   };
 
